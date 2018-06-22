@@ -23,7 +23,8 @@ SysUserService.java里的save() 方法里需要移除 password = "12345678";
 同时，MailUtil里的发信参数要补全，并在SysUserService.java里的save()里 sysUserMapper.insertSelective(user) 之前调用
 这是默认给的逻辑，可以根据项目实际情况调整
 
-
+-------------------
+sql文件
 ===========================================================================================
 /*
 Navicat MySQL Data Transfer
