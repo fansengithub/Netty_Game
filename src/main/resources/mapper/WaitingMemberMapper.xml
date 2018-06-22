@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mmall.dao.WaitingMemberMapper">
+  <resultMap id="BaseResultMap" type="com.mmall.model.WaitingMember">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="contacts" jdbcType="VARCHAR" property="contacts" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="boos_telephone" jdbcType="VARCHAR" property="boosTelephone" />
+    <result column="area" jdbcType="VARCHAR" property="area" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="IDcard_picture" jdbcType="VARCHAR" property="idcardPicture" />
+    <result column="business_license_picture" jdbcType="VARCHAR" property="businessLicensePicture" />
+    <result column="is_pass" jdbcType="INTEGER" property="isPass" />
+    <result column="boss_name" jdbcType="VARCHAR" property="bossName" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, name, contacts, telephone, boos_telephone, area, address, IDcard_picture, business_license_picture, 
+    is_pass, boss_name
+  </sql>
+  <select id="selectByExample" parameterType="com.mmall.model.WaitingMemberExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from waiting_member
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from waiting_member
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from waiting_member
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mmall.model.WaitingMemberExample">
+    delete from waiting_member
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mmall.model.WaitingMember">
+    insert into waiting_member (id, name, contacts, 
+      telephone, boos_telephone, area, 
+      address, IDcard_picture, business_license_picture, 
+      is_pass, boss_name)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{contacts,jdbcType=VARCHAR}, 
+      #{telephone,jdbcType=VARCHAR}, #{boosTelephone,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{idcardPicture,jdbcType=VARCHAR}, #{businessLicensePicture,jdbcType=VARCHAR}, 
+      #{isPass,jdbcType=INTEGER}, #{bossName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mmall.model.WaitingMember">
+    insert into waiting_member
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="contacts != null">
+        contacts,
+      </if>
+      <if test="telephone != null">
+        telephone,
+      </if>
+      <if test="boosTelephone != null">
+        boos_telephone,
+      </if>
+      <if test="area != null">
+        area,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="idcardPicture != null">
+        IDcard_picture,
+      </if>
+      <if test="businessLicensePicture != null">
+        business_license_picture,
+      </if>
+      <if test="isPass != null">
+        is_pass,
+      </if>
+      <if test="bossName != null">
+        boss_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null">
+        #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="boosTelephone != null">
+        #{boosTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardPicture != null">
+        #{idcardPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="businessLicensePicture != null">
+        #{businessLicensePicture,jdbcType=VARCHAR},
+      </if>
+      <if test="isPass != null">
+        #{isPass,jdbcType=INTEGER},
+      </if>
+      <if test="bossName != null">
+        #{bossName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mmall.model.WaitingMemberExample" resultType="java.lang.Long">
+    select count(*) from waiting_member
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update waiting_member
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contacts != null">
+        contacts = #{record.contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telephone != null">
+        telephone = #{record.telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.boosTelephone != null">
+        boos_telephone = #{record.boosTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.area != null">
+        area = #{record.area,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idcardPicture != null">
+        IDcard_picture = #{record.idcardPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.businessLicensePicture != null">
+        business_license_picture = #{record.businessLicensePicture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isPass != null">
+        is_pass = #{record.isPass,jdbcType=INTEGER},
+      </if>
+      <if test="record.bossName != null">
+        boss_name = #{record.bossName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update waiting_member
+    set id = #{record.id,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      contacts = #{record.contacts,jdbcType=VARCHAR},
+      telephone = #{record.telephone,jdbcType=VARCHAR},
+      boos_telephone = #{record.boosTelephone,jdbcType=VARCHAR},
+      area = #{record.area,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      IDcard_picture = #{record.idcardPicture,jdbcType=VARCHAR},
+      business_license_picture = #{record.businessLicensePicture,jdbcType=VARCHAR},
+      is_pass = #{record.isPass,jdbcType=INTEGER},
+      boss_name = #{record.bossName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mmall.model.WaitingMember">
+    update waiting_member
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null">
+        contacts = #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="boosTelephone != null">
+        boos_telephone = #{boosTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardPicture != null">
+        IDcard_picture = #{idcardPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="businessLicensePicture != null">
+        business_license_picture = #{businessLicensePicture,jdbcType=VARCHAR},
+      </if>
+      <if test="isPass != null">
+        is_pass = #{isPass,jdbcType=INTEGER},
+      </if>
+      <if test="bossName != null">
+        boss_name = #{bossName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mmall.model.WaitingMember">
+    update waiting_member
+    set name = #{name,jdbcType=VARCHAR},
+      contacts = #{contacts,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      boos_telephone = #{boosTelephone,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      IDcard_picture = #{idcardPicture,jdbcType=VARCHAR},
+      business_license_picture = #{businessLicensePicture,jdbcType=VARCHAR},
+      is_pass = #{isPass,jdbcType=INTEGER},
+      boss_name = #{bossName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from waiting_member
+  </select>
+</mapper>

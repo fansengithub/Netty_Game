@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mmall.dao.RechargeDetailMapper">
+  <resultMap id="BaseResultMap" type="com.mmall.model.RechargeDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="trad_no" jdbcType="VARCHAR" property="tradNo" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="role" jdbcType="VARCHAR" property="role" />
+    <result column="before_recharge" jdbcType="DECIMAL" property="beforeRecharge" />
+    <result column="after_recharge" jdbcType="DECIMAL" property="afterRecharge" />
+    <result column="recharge_money" jdbcType="DECIMAL" property="rechargeMoney" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="recharge_object" jdbcType="DECIMAL" property="rechargeObject" />
+    <result column="recharge_type" jdbcType="INTEGER" property="rechargeType" />
+    <result column="recharge_time" jdbcType="TIMESTAMP" property="rechargeTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, trad_no, user_id, name, role, before_recharge, after_recharge, recharge_money, 
+    state, recharge_object, recharge_type, recharge_time
+  </sql>
+  <select id="selectByExample" parameterType="com.mmall.model.RechargeDetailExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from recharge_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from recharge_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from recharge_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mmall.model.RechargeDetailExample">
+    delete from recharge_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mmall.model.RechargeDetail">
+    insert into recharge_detail (id, trad_no, user_id, 
+      name, role, before_recharge, 
+      after_recharge, recharge_money, state, 
+      recharge_object, recharge_type, recharge_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{tradNo,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+      #{name,jdbcType=VARCHAR}, #{role,jdbcType=VARCHAR}, #{beforeRecharge,jdbcType=DECIMAL}, 
+      #{afterRecharge,jdbcType=DECIMAL}, #{rechargeMoney,jdbcType=DECIMAL}, #{state,jdbcType=INTEGER}, 
+      #{rechargeObject,jdbcType=DECIMAL}, #{rechargeType,jdbcType=INTEGER}, #{rechargeTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mmall.model.RechargeDetail">
+    insert into recharge_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="tradNo != null">
+        trad_no,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="role != null">
+        role,
+      </if>
+      <if test="beforeRecharge != null">
+        before_recharge,
+      </if>
+      <if test="afterRecharge != null">
+        after_recharge,
+      </if>
+      <if test="rechargeMoney != null">
+        recharge_money,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="rechargeObject != null">
+        recharge_object,
+      </if>
+      <if test="rechargeType != null">
+        recharge_type,
+      </if>
+      <if test="rechargeTime != null">
+        recharge_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="tradNo != null">
+        #{tradNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null">
+        #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="beforeRecharge != null">
+        #{beforeRecharge,jdbcType=DECIMAL},
+      </if>
+      <if test="afterRecharge != null">
+        #{afterRecharge,jdbcType=DECIMAL},
+      </if>
+      <if test="rechargeMoney != null">
+        #{rechargeMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="rechargeObject != null">
+        #{rechargeObject,jdbcType=DECIMAL},
+      </if>
+      <if test="rechargeType != null">
+        #{rechargeType,jdbcType=INTEGER},
+      </if>
+      <if test="rechargeTime != null">
+        #{rechargeTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mmall.model.RechargeDetailExample" resultType="java.lang.Long">
+    select count(*) from recharge_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update recharge_detail
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.tradNo != null">
+        trad_no = #{record.tradNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.role != null">
+        role = #{record.role,jdbcType=VARCHAR},
+      </if>
+      <if test="record.beforeRecharge != null">
+        before_recharge = #{record.beforeRecharge,jdbcType=DECIMAL},
+      </if>
+      <if test="record.afterRecharge != null">
+        after_recharge = #{record.afterRecharge,jdbcType=DECIMAL},
+      </if>
+      <if test="record.rechargeMoney != null">
+        recharge_money = #{record.rechargeMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.state != null">
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.rechargeObject != null">
+        recharge_object = #{record.rechargeObject,jdbcType=DECIMAL},
+      </if>
+      <if test="record.rechargeType != null">
+        recharge_type = #{record.rechargeType,jdbcType=INTEGER},
+      </if>
+      <if test="record.rechargeTime != null">
+        recharge_time = #{record.rechargeTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update recharge_detail
+    set id = #{record.id,jdbcType=INTEGER},
+      trad_no = #{record.tradNo,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      role = #{record.role,jdbcType=VARCHAR},
+      before_recharge = #{record.beforeRecharge,jdbcType=DECIMAL},
+      after_recharge = #{record.afterRecharge,jdbcType=DECIMAL},
+      recharge_money = #{record.rechargeMoney,jdbcType=DECIMAL},
+      state = #{record.state,jdbcType=INTEGER},
+      recharge_object = #{record.rechargeObject,jdbcType=DECIMAL},
+      recharge_type = #{record.rechargeType,jdbcType=INTEGER},
+      recharge_time = #{record.rechargeTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mmall.model.RechargeDetail">
+    update recharge_detail
+    <set>
+      <if test="tradNo != null">
+        trad_no = #{tradNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null">
+        role = #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="beforeRecharge != null">
+        before_recharge = #{beforeRecharge,jdbcType=DECIMAL},
+      </if>
+      <if test="afterRecharge != null">
+        after_recharge = #{afterRecharge,jdbcType=DECIMAL},
+      </if>
+      <if test="rechargeMoney != null">
+        recharge_money = #{rechargeMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="rechargeObject != null">
+        recharge_object = #{rechargeObject,jdbcType=DECIMAL},
+      </if>
+      <if test="rechargeType != null">
+        recharge_type = #{rechargeType,jdbcType=INTEGER},
+      </if>
+      <if test="rechargeTime != null">
+        recharge_time = #{rechargeTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mmall.model.RechargeDetail">
+    update recharge_detail
+    set trad_no = #{tradNo,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      role = #{role,jdbcType=VARCHAR},
+      before_recharge = #{beforeRecharge,jdbcType=DECIMAL},
+      after_recharge = #{afterRecharge,jdbcType=DECIMAL},
+      recharge_money = #{rechargeMoney,jdbcType=DECIMAL},
+      state = #{state,jdbcType=INTEGER},
+      recharge_object = #{rechargeObject,jdbcType=DECIMAL},
+      recharge_type = #{rechargeType,jdbcType=INTEGER},
+      recharge_time = #{rechargeTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+
+  <select id="selectAll"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from recharge_detail
+    <where>
+      <if test="param!=null and param!=''">
+        AND (id like CONCAT('%',#{param},'%') or name like CONCAT('%',#{param},'%'))
+      </if>
+      <if test="startTime != null and startTime != ''">
+        and recharge_time &gt; #{startTime}
+      </if>
+      <if test="endTime != null and endTime != ''">
+        and recharge_time &lt; #{endTime}
+      </if>
+    </where>
+    order by recharge_time desc
+  </select>
+  <select id="selectAllByService"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from recharge_detail
+    <where>
+      ((role='1' and user_id = #{uid,jdbcType=INTEGER}) or
+      (role='2' and user_id in (select id from organization where  serviceProvider_id = #{uid,jdbcType=INTEGER})) or
+      (role='3' and user_id in (select id from piano_shop where belongto_orginazeID in(select id from organization where serviceProvider_id=#{uid,jdbcType=INTEGER}))) or
+      (role='4' and user_id in (select id from teacher where belongto_piano_shopID in (select id from piano_shop where belongto_orginazeID in (select id from organization where serviceProvider_id = #{uid,jdbcType=INTEGER}))))or
+      (role='5' and user_id in (select id from parents where teacher_id in (select id from teacher where belongto_piano_shopID in (select id from piano_shop where belongto_orginazeID in (select id from organization where serviceProvider_id = #{uid,jdbcType=INTEGER})))))or
+      (role='6' and user_id in (select id from students where teacher_id in (select id from teacher where belongto_piano_shopID in (select id from piano_shop where belongto_orginazeID in (select id from organization where serviceProvider_id = #{uid,jdbcType=INTEGER}))))))
+      <if test="param!=null and param!=''">
+        AND (id like CONCAT('%',#{param},'%') or name like CONCAT('%',#{param},'%'))
+      </if>
+      <if test="startTime != null and startTime != ''">
+        and recharge_time &gt; #{startTime}
+      </if>
+      <if test="endTime != null and endTime != ''">
+        and recharge_time &lt; #{endTime}
+      </if>
+    </where>
+    order by recharge_time desc
+  </select>
+  <select id="selectAllByOrganization"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from recharge_detail
+    <where>
+      ((role='2' and user_id = #{uid,jdbcType=INTEGER}) or
+      (role='3' and user_id in (select id from piano_shop where belongto_orginazeID =#{uid,jdbcType=INTEGER})) or
+      (role='4' and user_id in (select id from teacher where belongto_piano_shopID in (select id from piano_shop where belongto_orginazeID= #{uid,jdbcType=INTEGER})))or
+      (role='5' and user_id in (select id from parents where teacher_id in (select id from teacher where belongto_piano_shopID in (select id from piano_shop where belongto_orginazeID = #{uid,jdbcType=INTEGER}))))or
+      (role='6' and user_id in (select id from students where teacher_id in (select id from teacher where belongto_piano_shopID in (select id from piano_shop where belongto_orginazeID = #{uid,jdbcType=INTEGER})))))
+      <if test="param!=null and param!=''">
+        AND (id like CONCAT('%',#{param},'%') or name like CONCAT('%',#{param},'%'))
+      </if>
+      <if test="startTime != null and startTime != ''">
+        and recharge_time &gt; #{startTime}
+      </if>
+      <if test="endTime != null and endTime != ''">
+        and recharge_time &lt; #{endTime}
+      </if>
+    </where>
+    order by recharge_time desc
+  </select>
+  <select id="selectAllByPianoShop"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from recharge_detail
+    <where>
+      ((role='3' and user_id = #{uid,jdbcType=INTEGER}) or
+      (role='4' and user_id in (select id from teacher where  belongto_piano_shopID = #{uid,jdbcType=INTEGER}))or
+      (role='5' and user_id in (select id from parents where teacher_id in (select id from teacher where belongto_piano_shopID = #{uid,jdbcType=INTEGER})))or
+      (role='6' and user_id in (select id from students where teacher_id in (select id from teacher where belongto_piano_shopID= #{uid,jdbcType=INTEGER}))))
+      <if test="param!=null and param!=''">
+        AND (id like CONCAT('%',#{param},'%') or name like CONCAT('%',#{param},'%'))
+      </if>
+      <if test="startTime != null and startTime != ''">
+        and recharge_time &gt; #{startTime}
+      </if>
+      <if test="endTime != null and endTime != ''">
+        and recharge_time &lt; #{endTime}
+      </if>
+    </where>
+    order by recharge_time desc
+  </select>
+  <!--通过uid和tolr获取用户充值总金额-->
+  <select id="getRechargeCountByUid" resultType="java.util.HashMap">
+    SELECT sum(recharge_money) as aa,sum(recharge_object) as bb
+    FROM recharge_detail where user_id=#{userId} and role=#{role}
+  </select>
+
+  <!--通过uid获取用户充值记录-->
+  <select id="getRechargeByUid" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM recharge_detail
+    <where>
+      user_id=#{uid}
+      <if test="time != null and time != ''">
+        <![CDATA[   and DATE_FORMAT(recharge_time, '%Y-%m-%d')>=  DATE_FORMAT(#{time}, '%Y-%m-%d')   ]]>
+      </if>
+      <if test="endtime != null and endtime != ''">
+        <![CDATA[  and DATE_FORMAT(recharge_time, '%Y-%m-%d') <= DATE_FORMAT(#{endtime}, '%Y-%m-%d')  ]]>
+      </if>
+    </where>
+    order by recharge_time desc
+  </select>
+
+  <!--获得单人充值总额-->
+  <select id="getRechargeDetaiCount" resultType="java.lang.Integer">
+    SELECT SUM(recharge_money) FROM recharge_detail where role=#{role} AND user_id=#{userId}
+  </select>
+</mapper>

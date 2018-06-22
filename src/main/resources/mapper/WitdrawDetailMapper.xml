@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mmall.dao.WitdrawDetailMapper">
+  <resultMap id="BaseResultMap" type="com.mmall.model.WitdrawDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="number" jdbcType="VARCHAR" property="number" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="role" jdbcType="VARCHAR" property="role" />
+    <result column="role_type" jdbcType="INTEGER" property="roleType" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="withdraw_object" jdbcType="DECIMAL" property="withdrawObject" />
+    <result column="account_money" jdbcType="DECIMAL" property="accountMoney" />
+    <result column="withdraw_time" jdbcType="TIMESTAMP" property="withdrawTime" />
+    <result column="bank_account" jdbcType="VARCHAR" property="bankAccount" />
+    <result column="stage" jdbcType="INTEGER" property="stage" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, number, user_id, role, role_type, username, withdraw_object, account_money, withdraw_time, 
+    bank_account, stage
+  </sql>
+  <select id="selectByExample" parameterType="com.mmall.model.WitdrawDetailExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from witdraw_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from witdraw_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from witdraw_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mmall.model.WitdrawDetailExample">
+    delete from witdraw_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mmall.model.WitdrawDetail">
+    insert into witdraw_detail (id, number, user_id, 
+      role, role_type, username, 
+      withdraw_object, account_money, withdraw_time, 
+      bank_account, stage)
+    values (#{id,jdbcType=INTEGER}, #{number,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+      #{role,jdbcType=VARCHAR}, #{roleType,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, 
+      #{withdrawObject,jdbcType=DECIMAL}, #{accountMoney,jdbcType=DECIMAL}, #{withdrawTime,jdbcType=TIMESTAMP}, 
+      #{bankAccount,jdbcType=VARCHAR}, #{stage,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mmall.model.WitdrawDetail">
+    insert into witdraw_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="number != null">
+        number,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="role != null">
+        role,
+      </if>
+      <if test="roleType != null">
+        role_type,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="withdrawObject != null">
+        withdraw_object,
+      </if>
+      <if test="accountMoney != null">
+        account_money,
+      </if>
+      <if test="withdrawTime != null">
+        withdraw_time,
+      </if>
+      <if test="bankAccount != null">
+        bank_account,
+      </if>
+      <if test="stage != null">
+        stage,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="role != null">
+        #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="roleType != null">
+        #{roleType,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="withdrawObject != null">
+        #{withdrawObject,jdbcType=DECIMAL},
+      </if>
+      <if test="accountMoney != null">
+        #{accountMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="withdrawTime != null">
+        #{withdrawTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bankAccount != null">
+        #{bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="stage != null">
+        #{stage,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mmall.model.WitdrawDetailExample" resultType="java.lang.Long">
+    select count(*) from witdraw_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update witdraw_detail
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.number != null">
+        number = #{record.number,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.role != null">
+        role = #{record.role,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roleType != null">
+        role_type = #{record.roleType,jdbcType=INTEGER},
+      </if>
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.withdrawObject != null">
+        withdraw_object = #{record.withdrawObject,jdbcType=DECIMAL},
+      </if>
+      <if test="record.accountMoney != null">
+        account_money = #{record.accountMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.withdrawTime != null">
+        withdraw_time = #{record.withdrawTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.bankAccount != null">
+        bank_account = #{record.bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stage != null">
+        stage = #{record.stage,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update witdraw_detail
+    set id = #{record.id,jdbcType=INTEGER},
+      number = #{record.number,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      role = #{record.role,jdbcType=VARCHAR},
+      role_type = #{record.roleType,jdbcType=INTEGER},
+      username = #{record.username,jdbcType=VARCHAR},
+      withdraw_object = #{record.withdrawObject,jdbcType=DECIMAL},
+      account_money = #{record.accountMoney,jdbcType=DECIMAL},
+      withdraw_time = #{record.withdrawTime,jdbcType=TIMESTAMP},
+      bank_account = #{record.bankAccount,jdbcType=VARCHAR},
+      stage = #{record.stage,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mmall.model.WitdrawDetail">
+    update witdraw_detail
+    <set>
+      <if test="number != null">
+        number = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="role != null">
+        role = #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="roleType != null">
+        role_type = #{roleType,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="withdrawObject != null">
+        withdraw_object = #{withdrawObject,jdbcType=DECIMAL},
+      </if>
+      <if test="accountMoney != null">
+        account_money = #{accountMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="withdrawTime != null">
+        withdraw_time = #{withdrawTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bankAccount != null">
+        bank_account = #{bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="stage != null">
+        stage = #{stage,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mmall.model.WitdrawDetail">
+    update witdraw_detail
+    set number = #{number,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      role = #{role,jdbcType=VARCHAR},
+      role_type = #{roleType,jdbcType=INTEGER},
+      username = #{username,jdbcType=VARCHAR},
+      withdraw_object = #{withdrawObject,jdbcType=DECIMAL},
+      account_money = #{accountMoney,jdbcType=DECIMAL},
+      withdraw_time = #{withdrawTime,jdbcType=TIMESTAMP},
+      bank_account = #{bankAccount,jdbcType=VARCHAR},
+      stage = #{stage,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selAllWitdrawDetail" resultMap="BaseResultMap">
+    SELECT * FROM witdraw_detail where  1=1
+    <if test="param!=null and param!=''">
+      AND number  LIKE concat("%",#{param},"%") or username LIKE concat("%",#{param},"%")
+    </if>
+    <if test="stage!=null and stage!=''">
+      and  stage =#{stage}
+    </if>
+    <if test="startTime != null and startTime != ''">
+      and withdraw_time &gt; #{startTime}
+    </if>
+    <if test="endTime != null and endTime != ''">
+      and withdraw_time &lt; #{endTime}
+    </if>
+    order by withdraw_time desc
+  </select>
+  <select id="selAllWitdrawDetailByService" resultMap="BaseResultMap">
+    SELECT * FROM witdraw_detail
+    <where>
+      ((role='1' and user_id = #{uid,jdbcType=INTEGER}) or
+      (role='2' and user_id in (select id from organization where  serviceProvider_id = #{uid,jdbcType=INTEGER})) or
+      (role='3' and user_id in (select id from piano_shop where belongto_orginazeID in(select id from organization where serviceProvider_id=#{uid,jdbcType=INTEGER}))) or
+      (role='4' and user_id in (select id from teacher where belongto_piano_shopID in (select id from piano_shop where belongto_orginazeID in (select id from organization where serviceProvider_id = #{uid,jdbcType=INTEGER})))))
+      <if test="param!=null and param!=''">
+        AND number  LIKE concat("%",#{param},"%") or username LIKE concat("%",#{param},"%")
+      </if>
+      <if test="stage!=null and stage!=''">
+        and  stage =#{stage}
+      </if>
+      <if test="startTime != null and startTime != ''">
+        and withdraw_time &gt; #{startTime}
+      </if>
+      <if test="endTime != null and endTime != ''">
+        and withdraw_time &lt; #{endTime}
+      </if>
+    </where>
+    order by withdraw_time desc
+  </select><select id="selAllWitdrawDetailByOrganization" resultMap="BaseResultMap">
+  SELECT * FROM witdraw_detail
+  <where>
+    ((role='2' and user_id = #{uid,jdbcType=INTEGER}) or
+    (role='3' and user_id in (select id from piano_shop where belongto_orginazeID =#{uid,jdbcType=INTEGER})) or
+    (role='4' and user_id in (select id from teacher where belongto_piano_shopID in (select id from piano_shop where belongto_orginazeID= #{uid,jdbcType=INTEGER}))))
+    <if test="param!=null and param!=''">
+      AND number  LIKE concat("%",#{param},"%") or username LIKE concat("%",#{param},"%")
+    </if>
+    <if test="stage!=null and stage!=''">
+      and  stage =#{stage}
+    </if>
+    <if test="startTime != null and startTime != ''">
+      and withdraw_time &gt; #{startTime}
+    </if>
+    <if test="endTime != null and endTime != ''">
+      and withdraw_time &lt; #{endTime}
+    </if>
+  </where>
+  order by withdraw_time desc
+</select>
+  <select id="selAllWitdrawDetailByPianoShop" resultMap="BaseResultMap">
+  SELECT * FROM witdraw_detail
+  <where>
+    ((role='3' and user_id = #{uid,jdbcType=INTEGER}) or
+    (role='4' and user_id in (select id from teacher where  belongto_piano_shopID = #{uid,jdbcType=INTEGER})))
+    <if test="param!=null and param!=''">
+      AND number  LIKE concat("%",#{param},"%") or username LIKE concat("%",#{param},"%")
+    </if>
+    <if test="stage!=null and stage!=''">
+      and  stage =#{stage}
+    </if>
+    <if test="startTime != null and startTime != ''">
+      and withdraw_time &gt; #{startTime}
+    </if>
+    <if test="endTime != null and endTime != ''">
+      and withdraw_time &lt; #{endTime}
+    </if>
+  </where>
+  order by withdraw_time desc
+</select>
+
+
+  <!--获取提现记录-->
+  <select id="getWitdrawByUid" resultMap="BaseResultMap">
+    SELECT * FROM witdraw_detail
+    <where>
+      user_id=#{tid}
+      <if test="time != null and time != ''">
+        <![CDATA[   and DATE_FORMAT(withdraw_time, '%Y-%m-%d')>=  DATE_FORMAT(#{time}, '%Y-%m-%d')   ]]>
+      </if>
+      <if test="endtime != null and endtime != ''">
+        <![CDATA[  and DATE_FORMAT(withdraw_time, '%Y-%m-%d') <= DATE_FORMAT(#{endtime}, '%Y-%m-%d')  ]]>
+      </if>
+    </where>
+    ORDER BY withdraw_time DESC
+  </select>
+  <!--获得单人提现总额-->
+  <select id="getWitdrawDetaiCount" resultType="java.lang.Integer">
+    SELECT SUM(account_money) FROM witdraw_detail where role=#{role} AND user_id=#{userId}
+  </select>
+</mapper>

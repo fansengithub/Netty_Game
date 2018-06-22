@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mmall.dao.SongRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.mmall.model.SongRecord" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_account" property="userAccount" jdbcType="VARCHAR" />
+    <result column="user_role" property="userRole" jdbcType="VARCHAR" />
+    <result column="user_nick" property="userNick" jdbcType="VARCHAR" />
+    <result column="piano_shop" property="pianoShop" jdbcType="VARCHAR" />
+    <result column="teacher" property="teacher" jdbcType="VARCHAR" />
+    <result column="user_type" property="userType" jdbcType="INTEGER" />
+    <result column="song_id" property="songId" jdbcType="INTEGER" />
+    <result column="difficulty" property="difficulty" jdbcType="INTEGER" />
+    <result column="playspeed" property="playspeed" jdbcType="INTEGER" />
+    <result column="success" property="success" jdbcType="INTEGER" />
+    <result column="times" property="times" jdbcType="INTEGER" />
+    <result column="record_time" property="recordTime" jdbcType="TIMESTAMP" />
+    <result column="first_param" property="firstParam" jdbcType="INTEGER" />
+    <result column="second_param" property="secondParam" jdbcType="DOUBLE" />
+    <result column="third_param" property="thirdParam" jdbcType="INTEGER" />
+    <result column="combo" property="combo" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, user_id, user_account, user_role, user_nick, piano_shop, teacher, user_type, 
+    song_id, difficulty, playspeed, success, times, record_time, first_param, second_param, 
+    third_param, combo
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mmall.model.SongRecordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from song_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from song_record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from song_record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mmall.model.SongRecordExample" >
+    delete from song_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mmall.model.SongRecord" >
+    insert into song_record (id, user_id, user_account, 
+      user_role, user_nick, piano_shop, 
+      teacher, user_type, song_id, 
+      difficulty, playspeed, success, 
+      times, record_time, first_param, 
+      second_param, third_param, combo
+      )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{userAccount,jdbcType=VARCHAR}, 
+      #{userRole,jdbcType=VARCHAR}, #{userNick,jdbcType=VARCHAR}, #{pianoShop,jdbcType=VARCHAR}, 
+      #{teacher,jdbcType=VARCHAR}, #{userType,jdbcType=INTEGER}, #{songId,jdbcType=INTEGER}, 
+      #{difficulty,jdbcType=INTEGER}, #{playspeed,jdbcType=INTEGER}, #{success,jdbcType=INTEGER}, 
+      #{times,jdbcType=INTEGER}, #{recordTime,jdbcType=TIMESTAMP}, #{firstParam,jdbcType=INTEGER}, 
+      #{secondParam,jdbcType=DOUBLE}, #{thirdParam,jdbcType=INTEGER}, #{combo,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mmall.model.SongRecord" >
+    insert into song_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userAccount != null" >
+        user_account,
+      </if>
+      <if test="userRole != null" >
+        user_role,
+      </if>
+      <if test="userNick != null" >
+        user_nick,
+      </if>
+      <if test="pianoShop != null" >
+        piano_shop,
+      </if>
+      <if test="teacher != null" >
+        teacher,
+      </if>
+      <if test="userType != null" >
+        user_type,
+      </if>
+      <if test="songId != null" >
+        song_id,
+      </if>
+      <if test="difficulty != null" >
+        difficulty,
+      </if>
+      <if test="playspeed != null" >
+        playspeed,
+      </if>
+      <if test="success != null" >
+        success,
+      </if>
+      <if test="times != null" >
+        times,
+      </if>
+      <if test="recordTime != null" >
+        record_time,
+      </if>
+      <if test="firstParam != null" >
+        first_param,
+      </if>
+      <if test="secondParam != null" >
+        second_param,
+      </if>
+      <if test="thirdParam != null" >
+        third_param,
+      </if>
+      <if test="combo != null" >
+        combo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userAccount != null" >
+        #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="userRole != null" >
+        #{userRole,jdbcType=VARCHAR},
+      </if>
+      <if test="userNick != null" >
+        #{userNick,jdbcType=VARCHAR},
+      </if>
+      <if test="pianoShop != null" >
+        #{pianoShop,jdbcType=VARCHAR},
+      </if>
+      <if test="teacher != null" >
+        #{teacher,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null" >
+        #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="songId != null" >
+        #{songId,jdbcType=INTEGER},
+      </if>
+      <if test="difficulty != null" >
+        #{difficulty,jdbcType=INTEGER},
+      </if>
+      <if test="playspeed != null" >
+        #{playspeed,jdbcType=INTEGER},
+      </if>
+      <if test="success != null" >
+        #{success,jdbcType=INTEGER},
+      </if>
+      <if test="times != null" >
+        #{times,jdbcType=INTEGER},
+      </if>
+      <if test="recordTime != null" >
+        #{recordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="firstParam != null" >
+        #{firstParam,jdbcType=INTEGER},
+      </if>
+      <if test="secondParam != null" >
+        #{secondParam,jdbcType=DOUBLE},
+      </if>
+      <if test="thirdParam != null" >
+        #{thirdParam,jdbcType=INTEGER},
+      </if>
+      <if test="combo != null" >
+        #{combo,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mmall.model.SongRecordExample" resultType="java.lang.Integer" >
+    select count(*) from song_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update song_record
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userAccount != null" >
+        user_account = #{record.userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userRole != null" >
+        user_role = #{record.userRole,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userNick != null" >
+        user_nick = #{record.userNick,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pianoShop != null" >
+        piano_shop = #{record.pianoShop,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teacher != null" >
+        teacher = #{record.teacher,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userType != null" >
+        user_type = #{record.userType,jdbcType=INTEGER},
+      </if>
+      <if test="record.songId != null" >
+        song_id = #{record.songId,jdbcType=INTEGER},
+      </if>
+      <if test="record.difficulty != null" >
+        difficulty = #{record.difficulty,jdbcType=INTEGER},
+      </if>
+      <if test="record.playspeed != null" >
+        playspeed = #{record.playspeed,jdbcType=INTEGER},
+      </if>
+      <if test="record.success != null" >
+        success = #{record.success,jdbcType=INTEGER},
+      </if>
+      <if test="record.times != null" >
+        times = #{record.times,jdbcType=INTEGER},
+      </if>
+      <if test="record.recordTime != null" >
+        record_time = #{record.recordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.firstParam != null" >
+        first_param = #{record.firstParam,jdbcType=INTEGER},
+      </if>
+      <if test="record.secondParam != null" >
+        second_param = #{record.secondParam,jdbcType=DOUBLE},
+      </if>
+      <if test="record.thirdParam != null" >
+        third_param = #{record.thirdParam,jdbcType=INTEGER},
+      </if>
+      <if test="record.combo != null" >
+        combo = #{record.combo,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update song_record
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      user_account = #{record.userAccount,jdbcType=VARCHAR},
+      user_role = #{record.userRole,jdbcType=VARCHAR},
+      user_nick = #{record.userNick,jdbcType=VARCHAR},
+      piano_shop = #{record.pianoShop,jdbcType=VARCHAR},
+      teacher = #{record.teacher,jdbcType=VARCHAR},
+      user_type = #{record.userType,jdbcType=INTEGER},
+      song_id = #{record.songId,jdbcType=INTEGER},
+      difficulty = #{record.difficulty,jdbcType=INTEGER},
+      playspeed = #{record.playspeed,jdbcType=INTEGER},
+      success = #{record.success,jdbcType=INTEGER},
+      times = #{record.times,jdbcType=INTEGER},
+      record_time = #{record.recordTime,jdbcType=TIMESTAMP},
+      first_param = #{record.firstParam,jdbcType=INTEGER},
+      second_param = #{record.secondParam,jdbcType=DOUBLE},
+      third_param = #{record.thirdParam,jdbcType=INTEGER},
+      combo = #{record.combo,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mmall.model.SongRecord" >
+    update song_record
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userAccount != null" >
+        user_account = #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="userRole != null" >
+        user_role = #{userRole,jdbcType=VARCHAR},
+      </if>
+      <if test="userNick != null" >
+        user_nick = #{userNick,jdbcType=VARCHAR},
+      </if>
+      <if test="pianoShop != null" >
+        piano_shop = #{pianoShop,jdbcType=VARCHAR},
+      </if>
+      <if test="teacher != null" >
+        teacher = #{teacher,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null" >
+        user_type = #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="songId != null" >
+        song_id = #{songId,jdbcType=INTEGER},
+      </if>
+      <if test="difficulty != null" >
+        difficulty = #{difficulty,jdbcType=INTEGER},
+      </if>
+      <if test="playspeed != null" >
+        playspeed = #{playspeed,jdbcType=INTEGER},
+      </if>
+      <if test="success != null" >
+        success = #{success,jdbcType=INTEGER},
+      </if>
+      <if test="times != null" >
+        times = #{times,jdbcType=INTEGER},
+      </if>
+      <if test="recordTime != null" >
+        record_time = #{recordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="firstParam != null" >
+        first_param = #{firstParam,jdbcType=INTEGER},
+      </if>
+      <if test="secondParam != null" >
+        second_param = #{secondParam,jdbcType=DOUBLE},
+      </if>
+      <if test="thirdParam != null" >
+        third_param = #{thirdParam,jdbcType=INTEGER},
+      </if>
+      <if test="combo != null" >
+        combo = #{combo,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mmall.model.SongRecord" >
+    update song_record
+    set user_id = #{userId,jdbcType=INTEGER},
+      user_account = #{userAccount,jdbcType=VARCHAR},
+      user_role = #{userRole,jdbcType=VARCHAR},
+      user_nick = #{userNick,jdbcType=VARCHAR},
+      piano_shop = #{pianoShop,jdbcType=VARCHAR},
+      teacher = #{teacher,jdbcType=VARCHAR},
+      user_type = #{userType,jdbcType=INTEGER},
+      song_id = #{songId,jdbcType=INTEGER},
+      difficulty = #{difficulty,jdbcType=INTEGER},
+      playspeed = #{playspeed,jdbcType=INTEGER},
+      success = #{success,jdbcType=INTEGER},
+      times = #{times,jdbcType=INTEGER},
+      record_time = #{recordTime,jdbcType=TIMESTAMP},
+      first_param = #{firstParam,jdbcType=INTEGER},
+      second_param = #{secondParam,jdbcType=DOUBLE},
+      third_param = #{thirdParam,jdbcType=INTEGER},
+      combo = #{combo,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <!--通过userId查询用户基础练习记录-->
+  <select id="getSongRecord" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from song_record
+    <where>
+      user_id=#{uid}
+    </where>
+    order by record_time desc limit #{page},#{size}
+  </select>
+
+  <!--通过userId查询用户基础练习记录-->
+  <select id="getSongRecordByUid" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from song_record
+    <where>
+      user_id=#{uid}
+      <if test="time != null and time != ''">
+        <![CDATA[   and DATE_FORMAT(record_time, '%Y-%m-%d')>=  DATE_FORMAT(#{time}, '%Y-%m-%d')   ]]>
+      </if>
+      <if test="endtime != null and endtime != ''">
+        <![CDATA[  and DATE_FORMAT(record_time, '%Y-%m-%d') <= DATE_FORMAT(#{endtime}, '%Y-%m-%d')  ]]>
+      </if>
+    </where>
+      order by record_time desc limit #{page},#{size}
+  </select>
+
+  <select id="selectWeek" resultType="java.lang.Integer"  >
+    SELECT DATE_FORMAT(#{date},'%w') FROM DUAL
+  </select>
+
+  <select id="selectSumByDay" resultType="java.lang.Integer"  >
+    SELECT  IFNULL(sum(times) ,0)
+    from song_record
+    where
+    date_format(record_time,'%Y-%m-%d')=#{date}
+    and user_id=#{userid}
+  </select>
+  <select id="selectMonthTime" resultType="java.lang.Integer"  >
+    select
+    ifnull(sum(times),0)
+    from song_record
+    where date_format(record_time,'%Y-%m')=date_format(now(),'%Y-%m')
+    and user_id=#{userid}
+  </select>
+  <select id="selectWeekTime" resultType="java.lang.Integer"  >
+    select
+    ifnull(sum(times),0)
+    from song_record
+    where YEARWEEK(date_format(record_time,'%Y-%m-%d')) = YEARWEEK(now())
+    and user_id=#{userid}
+  </select>
+  <select id="selectLastWeekTime" resultType="java.lang.Integer"  >
+    select
+    ifnull(sum(times),0)
+    from song_record
+    where YEARWEEK(date_format(record_time,'%Y-%m-%d')) = YEARWEEK(now())-1
+    and user_id=#{userid}
+  </select>
+
+  <select id="getSongRecords" resultMap="BaseResultMap">
+    SELECT * FROM song_record
+    <where>
+      <if test="time != null and time != ''">
+        <![CDATA[and DATE_FORMAT(record_time, '%Y-%c-%d %h:%i')>=  DATE_FORMAT(#{time}, '%Y-%c-%d %h:%i')   ]]>
+      </if>
+      <if test="endtime != null and endtime != ''">
+        <![CDATA[and DATE_FORMAT(record_time, '%Y-%c-%d %h:%i') <= DATE_FORMAT(#{endtime},'%Y-%c-%d %h:%i')  ]]>
+      </if>
+      AND user_id=#{uid} AND song_id=#{oid}
+    </where>
+  </select>
+
+  <!--获取全部积分记录-->
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from song_record where  1=1
+    <if test="param!=null and param!=''">
+      and user_nick=#{param}
+    </if>
+    <if test="startTime != null and startTime != ''">
+      and record_time &gt; #{startTime}
+    </if>
+    <if test="endTime != null and endTime != ''">
+      and record_time &lt; #{endTime}
+    </if>
+    order by record_time desc
+  </select>
+</mapper>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mmall.dao.OperaExplainPictureMapper" >
+  <resultMap id="BaseResultMap" type="com.mmall.model.OperaExplainPicture" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="opera_id" property="operaId" jdbcType="INTEGER" />
+    <result column="explain_picture" property="explainPicture" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, opera_id, explain_picture
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from opera_explain_picture
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from opera_explain_picture
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mmall.model.OperaExplainPicture" >
+    insert into opera_explain_picture (id, opera_id, explain_picture
+      )
+    values (#{id,jdbcType=INTEGER}, #{operaId,jdbcType=INTEGER}, #{explainPicture,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mmall.model.OperaExplainPicture" >
+    insert into opera_explain_picture
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="operaId != null" >
+        opera_id,
+      </if>
+      <if test="explainPicture != null" >
+        explain_picture,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="operaId != null" >
+        #{operaId,jdbcType=INTEGER},
+      </if>
+      <if test="explainPicture != null" >
+        #{explainPicture,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mmall.model.OperaExplainPicture" >
+    update opera_explain_picture
+    <set >
+      <if test="operaId != null" >
+        opera_id = #{operaId,jdbcType=INTEGER},
+      </if>
+      <if test="explainPicture != null" >
+        explain_picture = #{explainPicture,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mmall.model.OperaExplainPicture" >
+    update opera_explain_picture
+    set opera_id = #{operaId,jdbcType=INTEGER},
+      explain_picture = #{explainPicture,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByOperaId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from opera_explain_picture
+    where opera_id = #{operaId,jdbcType=INTEGER}
+  </select>
+
+</mapper>

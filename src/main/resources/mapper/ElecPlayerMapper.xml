@@ -1,0 +1,708 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mmall.dao.ElecPlayerMapper" >
+  <resultMap id="BaseResultMap" type="com.mmall.model.ElecPlayer" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="player_id" property="playerId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="is_qiyong" property="isQiyong" jdbcType="INTEGER" />
+    <result column="is_lookallMusic" property="isLookallmusic" jdbcType="INTEGER" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="brithday" property="brithday" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="role_type" property="roleType" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="score" property="score" jdbcType="INTEGER" />
+    <result column="xiongzhang" property="xiongzhang" jdbcType="INTEGER" />
+    <result column="rank" property="rank" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="wx_openid" property="wxOpenid" jdbcType="VARCHAR" />
+    <result column="wx_unionid" property="wxUnionid" jdbcType="VARCHAR" />
+    <result column="wx_head" property="wxHead" jdbcType="VARCHAR" />
+    <result column="qq_openid" property="qqOpenid" jdbcType="VARCHAR" />
+    <result column="qq_unionid" property="qqUnionid" jdbcType="VARCHAR" />
+    <result column="qq_head" property="qqHead" jdbcType="VARCHAR" />
+    <result column="sina_openid" property="sinaOpenid" jdbcType="VARCHAR" />
+    <result column="sina_unionid" property="sinaUnionid" jdbcType="VARCHAR" />
+    <result column="sina_head" property="sinaHead" jdbcType="VARCHAR" />
+    <result column="headurl" property="headurl" jdbcType="VARCHAR" />
+    <result column="isComplete" property="iscomplete" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="referee_id" property="refereeId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, player_id, name, nickname, is_qiyong, is_lookallMusic, age, sex, brithday, phone,
+    password, role_type, create_time, score, xiongzhang, rank, province, city, area,
+    address, wx_openid, wx_unionid, wx_head, qq_openid, qq_unionid, qq_head, sina_openid,
+    sina_unionid, sina_head, headurl, isComplete, type, referee_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mmall.model.ElecPlayerExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from elec_player
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from elec_player
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from elec_player
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mmall.model.ElecPlayerExample" >
+    delete from elec_player
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mmall.model.ElecPlayer" >
+    insert into elec_player (id, player_id, name,
+    nickname, is_qiyong, is_lookallMusic,
+    age, sex, brithday,
+    phone, password, role_type,
+    create_time, score, xiongzhang,
+    rank, province, city,
+    area, address, wx_openid,
+    wx_unionid, wx_head, qq_openid,
+    qq_unionid, qq_head, sina_openid,
+    sina_unionid, sina_head, headurl,
+    isComplete, type, referee_id
+    )
+    values (#{id,jdbcType=INTEGER}, #{playerId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+    #{nickname,jdbcType=VARCHAR}, #{isQiyong,jdbcType=INTEGER}, #{isLookallmusic,jdbcType=INTEGER},
+    #{age,jdbcType=INTEGER}, #{sex,jdbcType=INTEGER}, #{brithday,jdbcType=VARCHAR},
+    #{phone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{roleType,jdbcType=INTEGER},
+    #{createTime,jdbcType=TIMESTAMP}, #{score,jdbcType=INTEGER}, #{xiongzhang,jdbcType=INTEGER},
+    #{rank,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR},
+    #{area,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{wxOpenid,jdbcType=VARCHAR},
+    #{wxUnionid,jdbcType=VARCHAR}, #{wxHead,jdbcType=VARCHAR}, #{qqOpenid,jdbcType=VARCHAR},
+    #{qqUnionid,jdbcType=VARCHAR}, #{qqHead,jdbcType=VARCHAR}, #{sinaOpenid,jdbcType=VARCHAR},
+    #{sinaUnionid,jdbcType=VARCHAR}, #{sinaHead,jdbcType=VARCHAR}, #{headurl,jdbcType=VARCHAR},
+    #{iscomplete,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, #{refereeId,jdbcType=VARCHAR}
+    )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mmall.model.ElecPlayer" >
+    insert into elec_player
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="playerId != null" >
+        player_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="nickname != null" >
+        nickname,
+      </if>
+      <if test="isQiyong != null" >
+        is_qiyong,
+      </if>
+      <if test="isLookallmusic != null" >
+        is_lookallMusic,
+      </if>
+      <if test="age != null" >
+        age,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="brithday != null" >
+        brithday,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="roleType != null" >
+        role_type,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="xiongzhang != null" >
+        xiongzhang,
+      </if>
+      <if test="rank != null" >
+        rank,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="wxOpenid != null" >
+        wx_openid,
+      </if>
+      <if test="wxUnionid != null" >
+        wx_unionid,
+      </if>
+      <if test="wxHead != null" >
+        wx_head,
+      </if>
+      <if test="qqOpenid != null" >
+        qq_openid,
+      </if>
+      <if test="qqUnionid != null" >
+        qq_unionid,
+      </if>
+      <if test="qqHead != null" >
+        qq_head,
+      </if>
+      <if test="sinaOpenid != null" >
+        sina_openid,
+      </if>
+      <if test="sinaUnionid != null" >
+        sina_unionid,
+      </if>
+      <if test="sinaHead != null" >
+        sina_head,
+      </if>
+      <if test="headurl != null" >
+        headurl,
+      </if>
+      <if test="iscomplete != null" >
+        isComplete,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="refereeId != null" >
+        referee_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="playerId != null" >
+        #{playerId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="isQiyong != null" >
+        #{isQiyong,jdbcType=INTEGER},
+      </if>
+      <if test="isLookallmusic != null" >
+        #{isLookallmusic,jdbcType=INTEGER},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="brithday != null" >
+        #{brithday,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="roleType != null" >
+        #{roleType,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="xiongzhang != null" >
+        #{xiongzhang,jdbcType=INTEGER},
+      </if>
+      <if test="rank != null" >
+        #{rank,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="wxOpenid != null" >
+        #{wxOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="wxUnionid != null" >
+        #{wxUnionid,jdbcType=VARCHAR},
+      </if>
+      <if test="wxHead != null" >
+        #{wxHead,jdbcType=VARCHAR},
+      </if>
+      <if test="qqOpenid != null" >
+        #{qqOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="qqUnionid != null" >
+        #{qqUnionid,jdbcType=VARCHAR},
+      </if>
+      <if test="qqHead != null" >
+        #{qqHead,jdbcType=VARCHAR},
+      </if>
+      <if test="sinaOpenid != null" >
+        #{sinaOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="sinaUnionid != null" >
+        #{sinaUnionid,jdbcType=VARCHAR},
+      </if>
+      <if test="sinaHead != null" >
+        #{sinaHead,jdbcType=VARCHAR},
+      </if>
+      <if test="headurl != null" >
+        #{headurl,jdbcType=VARCHAR},
+      </if>
+      <if test="iscomplete != null" >
+        #{iscomplete,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="refereeId != null" >
+        #{refereeId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mmall.model.ElecPlayerExample" resultType="java.lang.Integer" >
+    select count(*) from elec_player
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update elec_player
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.playerId != null" >
+        player_id = #{record.playerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nickname != null" >
+        nickname = #{record.nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isQiyong != null" >
+        is_qiyong = #{record.isQiyong,jdbcType=INTEGER},
+      </if>
+      <if test="record.isLookallmusic != null" >
+        is_lookallMusic = #{record.isLookallmusic,jdbcType=INTEGER},
+      </if>
+      <if test="record.age != null" >
+        age = #{record.age,jdbcType=INTEGER},
+      </if>
+      <if test="record.sex != null" >
+        sex = #{record.sex,jdbcType=INTEGER},
+      </if>
+      <if test="record.brithday != null" >
+        brithday = #{record.brithday,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roleType != null" >
+        role_type = #{record.roleType,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.score != null" >
+        score = #{record.score,jdbcType=INTEGER},
+      </if>
+      <if test="record.xiongzhang != null" >
+        xiongzhang = #{record.xiongzhang,jdbcType=INTEGER},
+      </if>
+      <if test="record.rank != null" >
+        rank = #{record.rank,jdbcType=VARCHAR},
+      </if>
+      <if test="record.province != null" >
+        province = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null" >
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.area != null" >
+        area = #{record.area,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxOpenid != null" >
+        wx_openid = #{record.wxOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxUnionid != null" >
+        wx_unionid = #{record.wxUnionid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxHead != null" >
+        wx_head = #{record.wxHead,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qqOpenid != null" >
+        qq_openid = #{record.qqOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qqUnionid != null" >
+        qq_unionid = #{record.qqUnionid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qqHead != null" >
+        qq_head = #{record.qqHead,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sinaOpenid != null" >
+        sina_openid = #{record.sinaOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sinaUnionid != null" >
+        sina_unionid = #{record.sinaUnionid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sinaHead != null" >
+        sina_head = #{record.sinaHead,jdbcType=VARCHAR},
+      </if>
+      <if test="record.headurl != null" >
+        headurl = #{record.headurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iscomplete != null" >
+        isComplete = #{record.iscomplete,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.refereeId != null" >
+        referee_id = #{record.refereeId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update elec_player
+    set id = #{record.id,jdbcType=INTEGER},
+    player_id = #{record.playerId,jdbcType=INTEGER},
+    name = #{record.name,jdbcType=VARCHAR},
+    nickname = #{record.nickname,jdbcType=VARCHAR},
+    is_qiyong = #{record.isQiyong,jdbcType=INTEGER},
+    is_lookallMusic = #{record.isLookallmusic,jdbcType=INTEGER},
+    age = #{record.age,jdbcType=INTEGER},
+    sex = #{record.sex,jdbcType=INTEGER},
+    brithday = #{record.brithday,jdbcType=VARCHAR},
+    phone = #{record.phone,jdbcType=VARCHAR},
+    password = #{record.password,jdbcType=VARCHAR},
+    role_type = #{record.roleType,jdbcType=INTEGER},
+    create_time = #{record.createTime,jdbcType=TIMESTAMP},
+    score = #{record.score,jdbcType=INTEGER},
+    xiongzhang = #{record.xiongzhang,jdbcType=INTEGER},
+    rank = #{record.rank,jdbcType=VARCHAR},
+    province = #{record.province,jdbcType=VARCHAR},
+    city = #{record.city,jdbcType=VARCHAR},
+    area = #{record.area,jdbcType=VARCHAR},
+    address = #{record.address,jdbcType=VARCHAR},
+    wx_openid = #{record.wxOpenid,jdbcType=VARCHAR},
+    wx_unionid = #{record.wxUnionid,jdbcType=VARCHAR},
+    wx_head = #{record.wxHead,jdbcType=VARCHAR},
+    qq_openid = #{record.qqOpenid,jdbcType=VARCHAR},
+    qq_unionid = #{record.qqUnionid,jdbcType=VARCHAR},
+    qq_head = #{record.qqHead,jdbcType=VARCHAR},
+    sina_openid = #{record.sinaOpenid,jdbcType=VARCHAR},
+    sina_unionid = #{record.sinaUnionid,jdbcType=VARCHAR},
+    sina_head = #{record.sinaHead,jdbcType=VARCHAR},
+    headurl = #{record.headurl,jdbcType=VARCHAR},
+    isComplete = #{record.iscomplete,jdbcType=INTEGER},
+    type = #{record.type,jdbcType=VARCHAR},
+    referee_id = #{record.refereeId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mmall.model.ElecPlayer" >
+    update elec_player
+    <set >
+      <if test="playerId != null" >
+        player_id = #{playerId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="isQiyong != null" >
+        is_qiyong = #{isQiyong,jdbcType=INTEGER},
+      </if>
+      <if test="isLookallmusic != null" >
+        is_lookallMusic = #{isLookallmusic,jdbcType=INTEGER},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="brithday != null" >
+        brithday = #{brithday,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="roleType != null" >
+        role_type = #{roleType,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="xiongzhang != null" >
+        xiongzhang = #{xiongzhang,jdbcType=INTEGER},
+      </if>
+      <if test="rank != null" >
+        rank = #{rank,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="wxOpenid != null" >
+        wx_openid = #{wxOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="wxUnionid != null" >
+        wx_unionid = #{wxUnionid,jdbcType=VARCHAR},
+      </if>
+      <if test="wxHead != null" >
+        wx_head = #{wxHead,jdbcType=VARCHAR},
+      </if>
+      <if test="qqOpenid != null" >
+        qq_openid = #{qqOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="qqUnionid != null" >
+        qq_unionid = #{qqUnionid,jdbcType=VARCHAR},
+      </if>
+      <if test="qqHead != null" >
+        qq_head = #{qqHead,jdbcType=VARCHAR},
+      </if>
+      <if test="sinaOpenid != null" >
+        sina_openid = #{sinaOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="sinaUnionid != null" >
+        sina_unionid = #{sinaUnionid,jdbcType=VARCHAR},
+      </if>
+      <if test="sinaHead != null" >
+        sina_head = #{sinaHead,jdbcType=VARCHAR},
+      </if>
+      <if test="headurl != null" >
+        headurl = #{headurl,jdbcType=VARCHAR},
+      </if>
+      <if test="iscomplete != null" >
+        isComplete = #{iscomplete,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="refereeId != null" >
+        referee_id = #{refereeId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mmall.model.ElecPlayer" >
+    update elec_player
+    set player_id = #{playerId,jdbcType=INTEGER},
+    name = #{name,jdbcType=VARCHAR},
+    nickname = #{nickname,jdbcType=VARCHAR},
+    is_qiyong = #{isQiyong,jdbcType=INTEGER},
+    is_lookallMusic = #{isLookallmusic,jdbcType=INTEGER},
+    age = #{age,jdbcType=INTEGER},
+    sex = #{sex,jdbcType=INTEGER},
+    brithday = #{brithday,jdbcType=VARCHAR},
+    phone = #{phone,jdbcType=VARCHAR},
+    password = #{password,jdbcType=VARCHAR},
+    role_type = #{roleType,jdbcType=INTEGER},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    score = #{score,jdbcType=INTEGER},
+    xiongzhang = #{xiongzhang,jdbcType=INTEGER},
+    rank = #{rank,jdbcType=VARCHAR},
+    province = #{province,jdbcType=VARCHAR},
+    city = #{city,jdbcType=VARCHAR},
+    area = #{area,jdbcType=VARCHAR},
+    address = #{address,jdbcType=VARCHAR},
+    wx_openid = #{wxOpenid,jdbcType=VARCHAR},
+    wx_unionid = #{wxUnionid,jdbcType=VARCHAR},
+    wx_head = #{wxHead,jdbcType=VARCHAR},
+    qq_openid = #{qqOpenid,jdbcType=VARCHAR},
+    qq_unionid = #{qqUnionid,jdbcType=VARCHAR},
+    qq_head = #{qqHead,jdbcType=VARCHAR},
+    sina_openid = #{sinaOpenid,jdbcType=VARCHAR},
+    sina_unionid = #{sinaUnionid,jdbcType=VARCHAR},
+    sina_head = #{sinaHead,jdbcType=VARCHAR},
+    headurl = #{headurl,jdbcType=VARCHAR},
+    isComplete = #{iscomplete,jdbcType=INTEGER},
+    type = #{type,jdbcType=VARCHAR},
+    referee_id = #{refereeId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <!--通过手机号查找玩家-->
+  <select id="selPlayerByPhone" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from elec_player WHERE phone=#{phone} limit 1
+  </select>
+
+  <select id="getStuByPid" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM elec_player WHERE player_id IN( SELECT id FROM students WHERE parent_id=#{pid}) AND role_type=1
+  </select>
+  <select id="getStuByTid" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM elec_player WHERE player_id IN( SELECT id FROM students WHERE teacher_id=#{tid}) AND role_type=1
+  </select>
+  <!--积分排行前100名-->
+  <select id="getScoreTopNum" resultType="com.mmall.dto.ScoreTopNum">
+    SELECT e.id AS uid,e.name AS name,e.score AS score,e.headurl AS head,@curRank := @curRank + 1 AS rank FROM elec_player e,(SELECT @curRank :=0) e ORDER BY score DESC LIMIT 0,#{topNum,jdbcType=INTEGER}
+  </select>
+  <!--微信登陆-->
+  <select id="selectByWX" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM elec_player
+    WHERE wx_openid=#{openId}
+  </select>
+
+  <!--qq登陆-->
+  <select id="selectByQQ" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM elec_player
+    WHERE qq_openid=#{openId}
+  </select>
+
+  <!--微博登陆-->
+  <select id="selectByWB" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM elec_player
+    WHERE sina_openid=#{openId}
+  </select>
+
+  <!--查询琴行的信息 由身份和琴行表外键-->
+  <select id="selectAllByPlayeridAndRole" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM elec_player
+    WHERE player_id=#{playerId} and role_type=#{roleType}
+  </select>
+
+</mapper>

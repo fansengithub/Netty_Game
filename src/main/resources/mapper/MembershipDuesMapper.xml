@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mmall.dao.MembershipDuesMapper">
+  <resultMap id="BaseResultMap" type="com.mmall.model.MembershipDues">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="role" jdbcType="VARCHAR" property="role" />
+    <result column="amount" jdbcType="VARCHAR" property="amount" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
+    <result column="reality_time" jdbcType="TIMESTAMP" property="realityTime" />
+    <result column="two_time" jdbcType="TIMESTAMP" property="twoTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, name, user_id, role, amount, time, reality_time, two_time
+  </sql>
+  <select id="selectByExample" parameterType="com.mmall.model.MembershipDuesExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from membership_dues
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from membership_dues
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from membership_dues
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mmall.model.MembershipDuesExample">
+    delete from membership_dues
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mmall.model.MembershipDues">
+    insert into membership_dues (id, name, user_id, 
+      role, amount, time, 
+      reality_time, two_time)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+      #{role,jdbcType=VARCHAR}, #{amount,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP}, 
+      #{realityTime,jdbcType=TIMESTAMP}, #{twoTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mmall.model.MembershipDues">
+    insert into membership_dues
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="role != null">
+        role,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+      <if test="realityTime != null">
+        reality_time,
+      </if>
+      <if test="twoTime != null">
+        two_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="role != null">
+        #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="realityTime != null">
+        #{realityTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="twoTime != null">
+        #{twoTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mmall.model.MembershipDuesExample" resultType="java.lang.Long">
+    select count(*) from membership_dues
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update membership_dues
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.role != null">
+        role = #{record.role,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amount != null">
+        amount = #{record.amount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.time != null">
+        time = #{record.time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.realityTime != null">
+        reality_time = #{record.realityTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.twoTime != null">
+        two_time = #{record.twoTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update membership_dues
+    set id = #{record.id,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      role = #{record.role,jdbcType=VARCHAR},
+      amount = #{record.amount,jdbcType=VARCHAR},
+      time = #{record.time,jdbcType=TIMESTAMP},
+      reality_time = #{record.realityTime,jdbcType=TIMESTAMP},
+      two_time = #{record.twoTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mmall.model.MembershipDues">
+    update membership_dues
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="role != null">
+        role = #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="realityTime != null">
+        reality_time = #{realityTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="twoTime != null">
+        two_time = #{twoTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mmall.model.MembershipDues">
+    update membership_dues
+    set name = #{name,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      role = #{role,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=VARCHAR},
+      time = #{time,jdbcType=TIMESTAMP},
+      reality_time = #{realityTime,jdbcType=TIMESTAMP},
+      two_time = #{twoTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <!--获取全部会费记录-->
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from membership_dues where  1=1
+    <if test="param!=null and param!=''">
+      and name=#{param}
+    </if>
+    <if test="consumpType1!=null and consumpType1!=''">
+      AND role=#{consumpType1}
+    </if>
+    <if test="startTime != null and startTime != ''">
+      and time &gt; #{startTime}
+    </if>
+    <if test="endTime != null and endTime != ''">
+      and time &lt; #{endTime}
+    </if>
+  </select>
+  <!--获取个人会费总金额记录-->
+  <select id="selectAllCountByRole" resultType="java.lang.Integer">
+    select sum(amount)
+    from membership_dues where  1=1
+    <if test="param!=null and param!=''">
+      and name=#{param}
+    </if>
+    <if test="consumpType1!=null and consumpType1!=''">
+      AND role=#{consumpType1}
+    </if>
+    <if test="startTime != null and startTime != ''">
+      and time &gt; #{startTime}
+    </if>
+    <if test="endTime != null and endTime != ''">
+      and time &lt; #{endTime}
+    </if>
+  </select>
+
+  <!--获取个人最后缴纳时间的记录-->
+  <select id="selectByLastTwoTime" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from membership_dues where  user_id=#{userId} and role=#{role} and two_time=(select max(two_time) from membership_dues where  user_id=#{userId} and role=#{role} )
+  </select>
+</mapper>

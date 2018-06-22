@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mmall.dao.GameDetailMapper">
+  <resultMap id="BaseResultMap" type="com.mmall.model.GameDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="pirce" jdbcType="DECIMAL" property="pirce" />
+    <result column="discount" jdbcType="DECIMAL" property="discount" />
+    <result column="dicount_use" jdbcType="INTEGER" property="dicountUse" />
+    <result column="free_count" jdbcType="INTEGER" property="freeCount" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="play_count" jdbcType="INTEGER" property="playCount" />
+    <result column="last_play_time" jdbcType="TIMESTAMP" property="lastPlayTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="on_shelf_time" jdbcType="TIMESTAMP" property="onShelfTime" />
+    <result column="off_shelf_time" jdbcType="TIMESTAMP" property="offShelfTime" />
+    <result column="founder" jdbcType="VARCHAR" property="founder" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, name, pirce, discount, dicount_use, free_count, status, play_count, last_play_time, 
+    create_time, on_shelf_time, off_shelf_time, founder
+  </sql>
+  <select id="selectByExample" parameterType="com.mmall.model.GameDetailExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from game_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from game_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from game_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mmall.model.GameDetailExample">
+    delete from game_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mmall.model.GameDetail">
+    insert into game_detail (id, name, pirce, 
+      discount, dicount_use, free_count, 
+      status, play_count, last_play_time, 
+      create_time, on_shelf_time, off_shelf_time, 
+      founder)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{pirce,jdbcType=DECIMAL}, 
+      #{discount,jdbcType=DECIMAL}, #{dicountUse,jdbcType=INTEGER}, #{freeCount,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{playCount,jdbcType=INTEGER}, #{lastPlayTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{onShelfTime,jdbcType=TIMESTAMP}, #{offShelfTime,jdbcType=TIMESTAMP}, 
+      #{founder,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mmall.model.GameDetail">
+    insert into game_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="pirce != null">
+        pirce,
+      </if>
+      <if test="discount != null">
+        discount,
+      </if>
+      <if test="dicountUse != null">
+        dicount_use,
+      </if>
+      <if test="freeCount != null">
+        free_count,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="playCount != null">
+        play_count,
+      </if>
+      <if test="lastPlayTime != null">
+        last_play_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="onShelfTime != null">
+        on_shelf_time,
+      </if>
+      <if test="offShelfTime != null">
+        off_shelf_time,
+      </if>
+      <if test="founder != null">
+        founder,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pirce != null">
+        #{pirce,jdbcType=DECIMAL},
+      </if>
+      <if test="discount != null">
+        #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="dicountUse != null">
+        #{dicountUse,jdbcType=INTEGER},
+      </if>
+      <if test="freeCount != null">
+        #{freeCount,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="playCount != null">
+        #{playCount,jdbcType=INTEGER},
+      </if>
+      <if test="lastPlayTime != null">
+        #{lastPlayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="onShelfTime != null">
+        #{onShelfTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="offShelfTime != null">
+        #{offShelfTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="founder != null">
+        #{founder,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mmall.model.GameDetailExample" resultType="java.lang.Long">
+    select count(*) from game_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update game_detail
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pirce != null">
+        pirce = #{record.pirce,jdbcType=DECIMAL},
+      </if>
+      <if test="record.discount != null">
+        discount = #{record.discount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.dicountUse != null">
+        dicount_use = #{record.dicountUse,jdbcType=INTEGER},
+      </if>
+      <if test="record.freeCount != null">
+        free_count = #{record.freeCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.playCount != null">
+        play_count = #{record.playCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.lastPlayTime != null">
+        last_play_time = #{record.lastPlayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.onShelfTime != null">
+        on_shelf_time = #{record.onShelfTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.offShelfTime != null">
+        off_shelf_time = #{record.offShelfTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.founder != null">
+        founder = #{record.founder,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update game_detail
+    set id = #{record.id,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      pirce = #{record.pirce,jdbcType=DECIMAL},
+      discount = #{record.discount,jdbcType=DECIMAL},
+      dicount_use = #{record.dicountUse,jdbcType=INTEGER},
+      free_count = #{record.freeCount,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      play_count = #{record.playCount,jdbcType=INTEGER},
+      last_play_time = #{record.lastPlayTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      on_shelf_time = #{record.onShelfTime,jdbcType=TIMESTAMP},
+      off_shelf_time = #{record.offShelfTime,jdbcType=TIMESTAMP},
+      founder = #{record.founder,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mmall.model.GameDetail">
+    update game_detail
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pirce != null">
+        pirce = #{pirce,jdbcType=DECIMAL},
+      </if>
+      <if test="discount != null">
+        discount = #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="dicountUse != null">
+        dicount_use = #{dicountUse,jdbcType=INTEGER},
+      </if>
+      <if test="freeCount != null">
+        free_count = #{freeCount,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="playCount != null">
+        play_count = #{playCount,jdbcType=INTEGER},
+      </if>
+      <if test="lastPlayTime != null">
+        last_play_time = #{lastPlayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="onShelfTime != null">
+        on_shelf_time = #{onShelfTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="offShelfTime != null">
+        off_shelf_time = #{offShelfTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="founder != null">
+        founder = #{founder,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mmall.model.GameDetail">
+    update game_detail
+    set name = #{name,jdbcType=VARCHAR},
+      pirce = #{pirce,jdbcType=DECIMAL},
+      discount = #{discount,jdbcType=DECIMAL},
+      dicount_use = #{dicountUse,jdbcType=INTEGER},
+      free_count = #{freeCount,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      play_count = #{playCount,jdbcType=INTEGER},
+      last_play_time = #{lastPlayTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      on_shelf_time = #{onShelfTime,jdbcType=TIMESTAMP},
+      off_shelf_time = #{offShelfTime,jdbcType=TIMESTAMP},
+      founder = #{founder,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="getAllGameDetail" resultMap="BaseResultMap">
+    SELECT * FROM game_detail where  1=1
+    <if test="param!=null and param!=''">
+      and id=#{param}
+    </if>
+    <if test="startTime != null and startTime != ''">
+      and on_shelf_time &gt; #{startTime}
+    </if>
+    <if test="endTime != null and endTime != ''">
+      and on_shelf_time &lt; #{endTime}
+    </if>
+    order by create_time desc
+  </select>
+
+</mapper>

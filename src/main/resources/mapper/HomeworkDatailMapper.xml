@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mmall.dao.HomeworkDatailMapper" >
+  <resultMap id="BaseResultMap" type="com.mmall.model.HomeworkDatail" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="teacher_id" property="teacherId" jdbcType="INTEGER" />
+    <result column="teacher_name" property="teacherName" jdbcType="VARCHAR" />
+    <result column="opera_id" property="operaId" jdbcType="INTEGER" />
+    <result column="stu_id" property="stuId" jdbcType="INTEGER" />
+    <result column="student" property="student" jdbcType="VARCHAR" />
+    <result column="parent" property="parent" jdbcType="VARCHAR" />
+    <result column="homework_detail" property="homeworkDetail" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="practice" property="practice" jdbcType="INTEGER" />
+    <result column="send_time" property="sendTime" jdbcType="TIMESTAMP" />
+    <result column="want_finish_time" property="wantFinishTime" jdbcType="TIMESTAMP" />
+    <result column="finish_time" property="finishTime" jdbcType="TIMESTAMP" />
+    <result column="belonto_piano" property="belontoPiano" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, teacher_id, teacher_name, opera_id, stu_id, student, parent, homework_detail,
+    state, practice, send_time, want_finish_time, finish_time, belonto_piano
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mmall.model.HomeworkDatailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from homework_datail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from homework_datail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from homework_datail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mmall.model.HomeworkDatailExample" >
+    delete from homework_datail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mmall.model.HomeworkDatail" >
+    insert into homework_datail (id, teacher_id, teacher_name,
+    opera_id, stu_id, student,
+    parent, homework_detail, state,
+    practice, send_time, want_finish_time,
+    finish_time, belonto_piano)
+    values (#{id,jdbcType=INTEGER}, #{teacherId,jdbcType=INTEGER}, #{teacherName,jdbcType=VARCHAR},
+    #{operaId,jdbcType=INTEGER}, #{stuId,jdbcType=INTEGER}, #{student,jdbcType=VARCHAR},
+    #{parent,jdbcType=VARCHAR}, #{homeworkDetail,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER},
+    #{practice,jdbcType=INTEGER}, #{sendTime,jdbcType=TIMESTAMP}, #{wantFinishTime,jdbcType=TIMESTAMP},
+    #{finishTime,jdbcType=TIMESTAMP}, #{belontoPiano,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mmall.model.HomeworkDatail" >
+    insert into homework_datail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="teacherId != null" >
+        teacher_id,
+      </if>
+      <if test="teacherName != null" >
+        teacher_name,
+      </if>
+      <if test="operaId != null" >
+        opera_id,
+      </if>
+      <if test="stuId != null" >
+        stu_id,
+      </if>
+      <if test="student != null" >
+        student,
+      </if>
+      <if test="parent != null" >
+        parent,
+      </if>
+      <if test="homeworkDetail != null" >
+        homework_detail,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="practice != null" >
+        practice,
+      </if>
+      <if test="sendTime != null" >
+        send_time,
+      </if>
+      <if test="wantFinishTime != null" >
+        want_finish_time,
+      </if>
+      <if test="finishTime != null" >
+        finish_time,
+      </if>
+      <if test="belontoPiano != null" >
+        belonto_piano,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="teacherId != null" >
+        #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="teacherName != null" >
+        #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="operaId != null" >
+        #{operaId,jdbcType=INTEGER},
+      </if>
+      <if test="stuId != null" >
+        #{stuId,jdbcType=INTEGER},
+      </if>
+      <if test="student != null" >
+        #{student,jdbcType=VARCHAR},
+      </if>
+      <if test="parent != null" >
+        #{parent,jdbcType=VARCHAR},
+      </if>
+      <if test="homeworkDetail != null" >
+        #{homeworkDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="practice != null" >
+        #{practice,jdbcType=INTEGER},
+      </if>
+      <if test="sendTime != null" >
+        #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wantFinishTime != null" >
+        #{wantFinishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishTime != null" >
+        #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="belontoPiano != null" >
+        #{belontoPiano,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mmall.model.HomeworkDatailExample" resultType="java.lang.Integer" >
+    select count(*) from homework_datail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update homework_datail
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.teacherId != null" >
+        teacher_id = #{record.teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="record.teacherName != null" >
+        teacher_name = #{record.teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operaId != null" >
+        opera_id = #{record.operaId,jdbcType=INTEGER},
+      </if>
+      <if test="record.stuId != null" >
+        stu_id = #{record.stuId,jdbcType=INTEGER},
+      </if>
+      <if test="record.student != null" >
+        student = #{record.student,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parent != null" >
+        parent = #{record.parent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.homeworkDetail != null" >
+        homework_detail = #{record.homeworkDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.practice != null" >
+        practice = #{record.practice,jdbcType=INTEGER},
+      </if>
+      <if test="record.sendTime != null" >
+        send_time = #{record.sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.wantFinishTime != null" >
+        want_finish_time = #{record.wantFinishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.finishTime != null" >
+        finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.belontoPiano != null" >
+        belonto_piano = #{record.belontoPiano,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update homework_datail
+    set id = #{record.id,jdbcType=INTEGER},
+    teacher_id = #{record.teacherId,jdbcType=INTEGER},
+    teacher_name = #{record.teacherName,jdbcType=VARCHAR},
+    opera_id = #{record.operaId,jdbcType=INTEGER},
+    stu_id = #{record.stuId,jdbcType=INTEGER},
+    student = #{record.student,jdbcType=VARCHAR},
+    parent = #{record.parent,jdbcType=VARCHAR},
+    homework_detail = #{record.homeworkDetail,jdbcType=VARCHAR},
+    state = #{record.state,jdbcType=INTEGER},
+    practice = #{record.practice,jdbcType=INTEGER},
+    send_time = #{record.sendTime,jdbcType=TIMESTAMP},
+    want_finish_time = #{record.wantFinishTime,jdbcType=TIMESTAMP},
+    finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
+    belonto_piano = #{record.belontoPiano,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mmall.model.HomeworkDatail" >
+    update homework_datail
+    <set >
+      <if test="teacherId != null" >
+        teacher_id = #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="teacherName != null" >
+        teacher_name = #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="operaId != null" >
+        opera_id = #{operaId,jdbcType=INTEGER},
+      </if>
+      <if test="stuId != null" >
+        stu_id = #{stuId,jdbcType=INTEGER},
+      </if>
+      <if test="student != null" >
+        student = #{student,jdbcType=VARCHAR},
+      </if>
+      <if test="parent != null" >
+        parent = #{parent,jdbcType=VARCHAR},
+      </if>
+      <if test="homeworkDetail != null" >
+        homework_detail = #{homeworkDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="practice != null" >
+        practice = #{practice,jdbcType=INTEGER},
+      </if>
+      <if test="sendTime != null" >
+        send_time = #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wantFinishTime != null" >
+        want_finish_time = #{wantFinishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishTime != null" >
+        finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="belontoPiano != null" >
+        belonto_piano = #{belontoPiano,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mmall.model.HomeworkDatail" >
+    update homework_datail
+    set teacher_id = #{teacherId,jdbcType=INTEGER},
+    teacher_name = #{teacherName,jdbcType=VARCHAR},
+    opera_id = #{operaId,jdbcType=INTEGER},
+    stu_id = #{stuId,jdbcType=INTEGER},
+    student = #{student,jdbcType=VARCHAR},
+    parent = #{parent,jdbcType=VARCHAR},
+    homework_detail = #{homeworkDetail,jdbcType=VARCHAR},
+    state = #{state,jdbcType=INTEGER},
+    practice = #{practice,jdbcType=INTEGER},
+    send_time = #{sendTime,jdbcType=TIMESTAMP},
+    want_finish_time = #{wantFinishTime,jdbcType=TIMESTAMP},
+    finish_time = #{finishTime,jdbcType=TIMESTAMP},
+    belonto_piano = #{belontoPiano,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectAll"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from homework_datail
+   <where>
+    <if test="param!=null">
+      and (teacher_name like CONCAT('%',#{param},'%') or student like CONCAT('%',#{param},'%'))
+    </if>
+   </where>
+  </select>
+  <select id="selectAllByService"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from homework_datail
+    <where>
+      (teacher_id in (select id from teacher where belongto_piano_shopID in (select id from piano_shop where belongto_orginazeID in (select id from organization where serviceProvider_id = #{uid,jdbcType=INTEGER}))))
+      <if test="param!=null">
+        and (teacher_name like CONCAT('%',#{param},'%') or student like CONCAT('%',#{param},'%'))
+      </if>
+    </where>
+  </select>
+  <select id="selectAllByOrganization"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from homework_datail
+    <where>
+      (teacher_id in (select id from teacher where belongto_piano_shopID in (select id from piano_shop where belongto_orginazeID= #{uid,jdbcType=INTEGER})))
+      <if test="param!=null">
+        and (teacher_name like CONCAT('%',#{param},'%') or student like CONCAT('%',#{param},'%'))
+      </if>
+    </where>
+  </select>
+  <select id="selectAllByPianoShop"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from homework_datail
+    <where>
+      (teacher_id in (select id from teacher where belongto_piano_shopID= #{uid,jdbcType=INTEGER}))
+      <if test="param!=null">
+        and (teacher_name like CONCAT('%',#{param},'%') or student like CONCAT('%',#{param},'%'))
+      </if>
+    </where>
+  </select>
+
+  <select id="getHomeworkByUid" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+      FROM homework_datail WHERE stu_id=#{uid}
+    ORDER BY send_time DESC
+  </select>
+
+  <!--获取全部作业-->
+  <select id="getAllHomeWork" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+      FROM homework_datail
+    ORDER BY send_time DESC
+  </select>
+
+  <select id="getAllHomeWorkByPid" resultMap="BaseResultMap" >
+    SELECT
+      <include refid="Base_Column_List" />
+    FROM homework_datail
+    <where>
+      stu_id IN(SELECT id FROM elec_player WHERE player_id IN (SELECT id FROM students WHERE parent_id=#{pid}))
+    </where>
+    ORDER BY send_time DESC
+  </select>
+
+  <select id="getAllHomeWorkByTid" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM homework_datail
+    <where>
+      stu_id IN(SELECT id FROM elec_player WHERE player_id IN (SELECT id FROM students WHERE teacher_id=#{tid}))
+    </where>
+    ORDER BY send_time DESC
+  </select>
+</mapper>

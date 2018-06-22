@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mmall.dao.BindingApplicationMapper">
+  <resultMap id="BaseResultMap" type="com.mmall.model.BindingApplication">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="from_user_name" jdbcType="VARCHAR" property="fromUserName" />
+    <result column="from_user_id" jdbcType="INTEGER" property="fromUserId" />
+    <result column="to_user_name" jdbcType="VARCHAR" property="toUserName" />
+    <result column="to_user_id" jdbcType="INTEGER" property="toUserId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="handle_time" jdbcType="TIMESTAMP" property="handleTime" />
+    <result column="from_user_type" jdbcType="INTEGER" property="fromUserType" />
+    <result column="apply_state" jdbcType="INTEGER" property="applyState" />
+    <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, from_user_name, from_user_id, to_user_name, to_user_id, create_time, handle_time, 
+    from_user_type, apply_state, is_delete
+  </sql>
+  <select id="selectByExample" parameterType="com.mmall.model.BindingApplicationExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from binding_application
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from binding_application
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from binding_application
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mmall.model.BindingApplicationExample">
+    delete from binding_application
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mmall.model.BindingApplication">
+    insert into binding_application (id, from_user_name, from_user_id, 
+      to_user_name, to_user_id, create_time, 
+      handle_time, from_user_type, apply_state, 
+      is_delete)
+    values (#{id,jdbcType=INTEGER}, #{fromUserName,jdbcType=VARCHAR}, #{fromUserId,jdbcType=INTEGER}, 
+      #{toUserName,jdbcType=VARCHAR}, #{toUserId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{handleTime,jdbcType=TIMESTAMP}, #{fromUserType,jdbcType=INTEGER}, #{applyState,jdbcType=INTEGER}, 
+      #{isDelete,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mmall.model.BindingApplication">
+    insert into binding_application
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="fromUserName != null">
+        from_user_name,
+      </if>
+      <if test="fromUserId != null">
+        from_user_id,
+      </if>
+      <if test="toUserName != null">
+        to_user_name,
+      </if>
+      <if test="toUserId != null">
+        to_user_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="handleTime != null">
+        handle_time,
+      </if>
+      <if test="fromUserType != null">
+        from_user_type,
+      </if>
+      <if test="applyState != null">
+        apply_state,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="fromUserName != null">
+        #{fromUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="fromUserId != null">
+        #{fromUserId,jdbcType=INTEGER},
+      </if>
+      <if test="toUserName != null">
+        #{toUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="toUserId != null">
+        #{toUserId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="handleTime != null">
+        #{handleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fromUserType != null">
+        #{fromUserType,jdbcType=INTEGER},
+      </if>
+      <if test="applyState != null">
+        #{applyState,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mmall.model.BindingApplicationExample" resultType="java.lang.Long">
+    select count(*) from binding_application
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update binding_application
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.fromUserName != null">
+        from_user_name = #{record.fromUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fromUserId != null">
+        from_user_id = #{record.fromUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.toUserName != null">
+        to_user_name = #{record.toUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.toUserId != null">
+        to_user_id = #{record.toUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.handleTime != null">
+        handle_time = #{record.handleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fromUserType != null">
+        from_user_type = #{record.fromUserType,jdbcType=INTEGER},
+      </if>
+      <if test="record.applyState != null">
+        apply_state = #{record.applyState,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDelete != null">
+        is_delete = #{record.isDelete,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update binding_application
+    set id = #{record.id,jdbcType=INTEGER},
+      from_user_name = #{record.fromUserName,jdbcType=VARCHAR},
+      from_user_id = #{record.fromUserId,jdbcType=INTEGER},
+      to_user_name = #{record.toUserName,jdbcType=VARCHAR},
+      to_user_id = #{record.toUserId,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      handle_time = #{record.handleTime,jdbcType=TIMESTAMP},
+      from_user_type = #{record.fromUserType,jdbcType=INTEGER},
+      apply_state = #{record.applyState,jdbcType=INTEGER},
+      is_delete = #{record.isDelete,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mmall.model.BindingApplication">
+    update binding_application
+    <set>
+      <if test="fromUserName != null">
+        from_user_name = #{fromUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="fromUserId != null">
+        from_user_id = #{fromUserId,jdbcType=INTEGER},
+      </if>
+      <if test="toUserName != null">
+        to_user_name = #{toUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="toUserId != null">
+        to_user_id = #{toUserId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="handleTime != null">
+        handle_time = #{handleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fromUserType != null">
+        from_user_type = #{fromUserType,jdbcType=INTEGER},
+      </if>
+      <if test="applyState != null">
+        apply_state = #{applyState,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mmall.model.BindingApplication">
+    update binding_application
+    set from_user_name = #{fromUserName,jdbcType=VARCHAR},
+      from_user_id = #{fromUserId,jdbcType=INTEGER},
+      to_user_name = #{toUserName,jdbcType=VARCHAR},
+      to_user_id = #{toUserId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      handle_time = #{handleTime,jdbcType=TIMESTAMP},
+      from_user_type = #{fromUserType,jdbcType=INTEGER},
+      apply_state = #{applyState,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="selectByToUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from binding_application
+    where is_delete = 0
+    and apply_state = 0
+    <if test="toUserId!=null">and
+      to_user_id = #{toUserId}
+    </if>
+
+  </select>
+
+  <select id="selectByToUserIdAndState" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from binding_application
+    where is_delete = 0
+    <if test="toUserId!=null">and
+      to_user_id = #{toUserId}
+    </if>
+    <if test="satate!=null">and
+      apply_state = #{satate}
+    </if>
+  </select>
+
+  <select id="selectByfromUserIdAndToUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from binding_application
+    where is_delete = 0
+    <if test="toUserId!=null">and
+      to_user_id = #{toUserId}
+    </if>
+    <if test="fromUserId!=null">and
+      from_user_id = #{fromUserId}
+    </if>
+  </select>
+
+  <select id="selectByfromUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from binding_application
+    where is_delete = 0
+    <if test="fromUserId!=null">and
+      from_user_id = #{fromUserId}
+    </if>
+
+  </select>
+
+  <select id="selectByfromUserIdAndState" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from binding_application
+    where is_delete = 0
+    <if test="fromUserId!=null">and
+      from_user_id = #{fromUserId}
+    </if>
+    <if test="satate!=null">and
+      apply_state = #{satate}
+    </if>
+  </select>
+
+
+  <select id="selectByfromUserIdOrToUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from binding_application
+    where is_delete = 0
+    and apply_state = 1
+    <if test="aimId!=null">and
+      ( to_user_id = #{aimId} or  from_user_id = #{aimId} )
+    </if>
+
+  </select>
+
+
+  <select id="selectByfromUserIdOrToUerId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from binding_application
+    where is_delete = 0
+    and apply_state = 1
+    <if test="fromUserId!=null and toUserId !=null">and
+      ( ( to_user_id = #{toUserId} and  from_user_id = #{fromUserId} ) or (to_user_id = #{fromUserId} and  from_user_id = #{toUserId}) )
+    </if>
+  </select>
+</mapper>

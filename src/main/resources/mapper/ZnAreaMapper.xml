@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mmall.dao.ZnAreaMapper" >
+  <resultMap id="BaseResultMap" type="com.mmall.model.ZnArea" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="area_name" property="areaName" jdbcType="VARCHAR" />
+    <result column="area_type" property="areaType" jdbcType="VARCHAR" />
+    <result column="area_cede" property="areaCede" jdbcType="VARCHAR" />
+    <result column="area_parent" property="areaParent" jdbcType="VARCHAR" />
+    <result column="num" property="num" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, area_name, area_type, area_cede, area_parent, num
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mmall.model.ZnAreaExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from zn_area
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from zn_area
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from zn_area
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mmall.model.ZnAreaExample" >
+    delete from zn_area
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mmall.model.ZnArea" >
+    insert into zn_area (id, area_name, area_type, 
+      area_cede, area_parent, num
+      )
+    values (#{id,jdbcType=VARCHAR}, #{areaName,jdbcType=VARCHAR}, #{areaType,jdbcType=VARCHAR}, 
+      #{areaCede,jdbcType=VARCHAR}, #{areaParent,jdbcType=VARCHAR}, #{num,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mmall.model.ZnArea" >
+    insert into zn_area
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="areaName != null" >
+        area_name,
+      </if>
+      <if test="areaType != null" >
+        area_type,
+      </if>
+      <if test="areaCede != null" >
+        area_cede,
+      </if>
+      <if test="areaParent != null" >
+        area_parent,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="areaName != null" >
+        #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="areaType != null" >
+        #{areaType,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCede != null" >
+        #{areaCede,jdbcType=VARCHAR},
+      </if>
+      <if test="areaParent != null" >
+        #{areaParent,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mmall.model.ZnAreaExample" resultType="java.lang.Integer" >
+    select count(*) from zn_area
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update zn_area
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaName != null" >
+        area_name = #{record.areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaType != null" >
+        area_type = #{record.areaType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaCede != null" >
+        area_cede = #{record.areaCede,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaParent != null" >
+        area_parent = #{record.areaParent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.num != null" >
+        num = #{record.num,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update zn_area
+    set id = #{record.id,jdbcType=VARCHAR},
+      area_name = #{record.areaName,jdbcType=VARCHAR},
+      area_type = #{record.areaType,jdbcType=VARCHAR},
+      area_cede = #{record.areaCede,jdbcType=VARCHAR},
+      area_parent = #{record.areaParent,jdbcType=VARCHAR},
+      num = #{record.num,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mmall.model.ZnArea" >
+    update zn_area
+    <set >
+      <if test="areaName != null" >
+        area_name = #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="areaType != null" >
+        area_type = #{areaType,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCede != null" >
+        area_cede = #{areaCede,jdbcType=VARCHAR},
+      </if>
+      <if test="areaParent != null" >
+        area_parent = #{areaParent,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null" >
+        num = #{num,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mmall.model.ZnArea" >
+    update zn_area
+    set area_name = #{areaName,jdbcType=VARCHAR},
+      area_type = #{areaType,jdbcType=VARCHAR},
+      area_cede = #{areaCede,jdbcType=VARCHAR},
+      area_parent = #{areaParent,jdbcType=VARCHAR},
+      num = #{num,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectAreaListByParentId" resultType="com.mmall.entity.Area" >
+   	SELECT id,area_name AS 'name'
+  	FROM zn_area
+  	WHERE area_parent=#{parentId}
+  </select>
+  <!--获得所有指定Parentid的信息-->
+  <select id="selectAllAreaListByParentId" resultMap="BaseResultMap" >
+   	SELECT * FROM zn_area
+  	WHERE area_parent=#{parentId}
+  </select>
+  <!--得到所有一级区域-->
+  <select id="selectAll" resultMap="BaseResultMap" >
+   	SELECT * FROM zn_area
+  	WHERE area_type=1
+  </select>
+
+  <!--有名字获取id-->
+  <select id="selectByName" resultMap="BaseResultMap" >
+   	SELECT * FROM zn_area
+  	WHERE area_name=#{name}
+  </select>
+</mapper>

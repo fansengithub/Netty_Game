@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mmall.dao.ServiceProviderMapper">
+    <resultMap id="BaseResultMap" type="com.mmall.model.ServiceProvider">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="provider_id" jdbcType="INTEGER" property="providerId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="contacts" jdbcType="VARCHAR" property="contacts"/>
+        <result column="is_disable" jdbcType="INTEGER" property="isDisable"/>
+        <result column="telephone" jdbcType="VARCHAR" property="telephone"/>
+        <result column="organiztion_num" jdbcType="INTEGER" property="organiztionNum"/>
+        <result column="piano_shop_num" jdbcType="INTEGER" property="pianoShopNum"/>
+        <result column="boss_name" jdbcType="VARCHAR" property="bossName"/>
+        <result column="boss_telephone" jdbcType="VARCHAR" property="bossTelephone"/>
+        <result column="income" jdbcType="DECIMAL" property="income"/>
+        <result column="area" jdbcType="VARCHAR" property="area"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="remind" jdbcType="INTEGER" property="remind"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="fengmian_picture" jdbcType="VARCHAR" property="fengmianPicture"/>
+        <result column="IDcard_picture" jdbcType="VARCHAR" property="idcardPicture"/>
+        <result column="business_license_picture" jdbcType="VARCHAR" property="businessLicensePicture"/>
+        <result column="balance" jdbcType="DECIMAL" property="balance"/>
+        <result column="withdraw_balance" jdbcType="DECIMAL" property="withdrawBalance"/>
+        <result column="register_time" jdbcType="TIMESTAMP" property="registerTime"/>
+        <result column="memeber_time" jdbcType="TIMESTAMP" property="memeberTime"/>
+        <result column="examine_time" jdbcType="TIMESTAMP" property="examineTime"/>
+        <result column="divide_money_rate" jdbcType="DECIMAL" property="divideMoneyRate"/>
+        <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    id, provider_id, name, contacts, is_disable, telephone, organiztion_num, piano_shop_num, 
+    boss_name, boss_telephone, income, area, address, remind, state, fengmian_picture, 
+    IDcard_picture, business_license_picture, balance, withdraw_balance, register_time, 
+    memeber_time, examine_time, divide_money_rate, last_login_time
+  </sql>
+    <select id="selectByExample" parameterType="com.mmall.model.ServiceProviderExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from service_provider
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from service_provider
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from service_provider
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.mmall.model.ServiceProviderExample">
+        delete from service_provider
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.mmall.model.ServiceProvider">
+    insert into service_provider (id, provider_id, name, 
+      contacts, is_disable, telephone, 
+      organiztion_num, piano_shop_num, boss_name, 
+      boss_telephone, income, area, 
+      address, remind, state, 
+      fengmian_picture, IDcard_picture, business_license_picture, 
+      balance, withdraw_balance, register_time, 
+      memeber_time, examine_time, divide_money_rate, 
+      last_login_time)
+    values (#{id,jdbcType=INTEGER}, #{providerId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{contacts,jdbcType=VARCHAR}, #{isDisable,jdbcType=INTEGER}, #{telephone,jdbcType=VARCHAR}, 
+      #{organiztionNum,jdbcType=INTEGER}, #{pianoShopNum,jdbcType=INTEGER}, #{bossName,jdbcType=VARCHAR}, 
+      #{bossTelephone,jdbcType=VARCHAR}, #{income,jdbcType=DECIMAL}, #{area,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{remind,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}, 
+      #{fengmianPicture,jdbcType=VARCHAR}, #{idcardPicture,jdbcType=VARCHAR}, #{businessLicensePicture,jdbcType=VARCHAR}, 
+      #{balance,jdbcType=DECIMAL}, #{withdrawBalance,jdbcType=DECIMAL}, #{registerTime,jdbcType=TIMESTAMP}, 
+      #{memeberTime,jdbcType=TIMESTAMP}, #{examineTime,jdbcType=TIMESTAMP}, #{divideMoneyRate,jdbcType=DECIMAL}, 
+      #{lastLoginTime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.mmall.model.ServiceProvider">
+        insert into service_provider
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="providerId != null">
+                provider_id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="contacts != null">
+                contacts,
+            </if>
+            <if test="isDisable != null">
+                is_disable,
+            </if>
+            <if test="telephone != null">
+                telephone,
+            </if>
+            <if test="organiztionNum != null">
+                organiztion_num,
+            </if>
+            <if test="pianoShopNum != null">
+                piano_shop_num,
+            </if>
+            <if test="bossName != null">
+                boss_name,
+            </if>
+            <if test="bossTelephone != null">
+                boss_telephone,
+            </if>
+            <if test="income != null">
+                income,
+            </if>
+            <if test="area != null">
+                area,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="remind != null">
+                remind,
+            </if>
+            <if test="state != null">
+                state,
+            </if>
+            <if test="fengmianPicture != null">
+                fengmian_picture,
+            </if>
+            <if test="idcardPicture != null">
+                IDcard_picture,
+            </if>
+            <if test="businessLicensePicture != null">
+                business_license_picture,
+            </if>
+            <if test="balance != null">
+                balance,
+            </if>
+            <if test="withdrawBalance != null">
+                withdraw_balance,
+            </if>
+            <if test="registerTime != null">
+                register_time,
+            </if>
+            <if test="memeberTime != null">
+                memeber_time,
+            </if>
+            <if test="examineTime != null">
+                examine_time,
+            </if>
+            <if test="divideMoneyRate != null">
+                divide_money_rate,
+            </if>
+            <if test="lastLoginTime != null">
+                last_login_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="providerId != null">
+                #{providerId,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="contacts != null">
+                #{contacts,jdbcType=VARCHAR},
+            </if>
+            <if test="isDisable != null">
+                #{isDisable,jdbcType=INTEGER},
+            </if>
+            <if test="telephone != null">
+                #{telephone,jdbcType=VARCHAR},
+            </if>
+            <if test="organiztionNum != null">
+                #{organiztionNum,jdbcType=INTEGER},
+            </if>
+            <if test="pianoShopNum != null">
+                #{pianoShopNum,jdbcType=INTEGER},
+            </if>
+            <if test="bossName != null">
+                #{bossName,jdbcType=VARCHAR},
+            </if>
+            <if test="bossTelephone != null">
+                #{bossTelephone,jdbcType=VARCHAR},
+            </if>
+            <if test="income != null">
+                #{income,jdbcType=DECIMAL},
+            </if>
+            <if test="area != null">
+                #{area,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="remind != null">
+                #{remind,jdbcType=INTEGER},
+            </if>
+            <if test="state != null">
+                #{state,jdbcType=INTEGER},
+            </if>
+            <if test="fengmianPicture != null">
+                #{fengmianPicture,jdbcType=VARCHAR},
+            </if>
+            <if test="idcardPicture != null">
+                #{idcardPicture,jdbcType=VARCHAR},
+            </if>
+            <if test="businessLicensePicture != null">
+                #{businessLicensePicture,jdbcType=VARCHAR},
+            </if>
+            <if test="balance != null">
+                #{balance,jdbcType=DECIMAL},
+            </if>
+            <if test="withdrawBalance != null">
+                #{withdrawBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="registerTime != null">
+                #{registerTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="memeberTime != null">
+                #{memeberTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="examineTime != null">
+                #{examineTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="divideMoneyRate != null">
+                #{divideMoneyRate,jdbcType=DECIMAL},
+            </if>
+            <if test="lastLoginTime != null">
+                #{lastLoginTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.mmall.model.ServiceProviderExample" resultType="java.lang.Long">
+        select count(*) from service_provider
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update service_provider
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.providerId != null">
+                provider_id = #{record.providerId,jdbcType=INTEGER},
+            </if>
+            <if test="record.name != null">
+                name = #{record.name,jdbcType=VARCHAR},
+            </if>
+            <if test="record.contacts != null">
+                contacts = #{record.contacts,jdbcType=VARCHAR},
+            </if>
+            <if test="record.isDisable != null">
+                is_disable = #{record.isDisable,jdbcType=INTEGER},
+            </if>
+            <if test="record.telephone != null">
+                telephone = #{record.telephone,jdbcType=VARCHAR},
+            </if>
+            <if test="record.organiztionNum != null">
+                organiztion_num = #{record.organiztionNum,jdbcType=INTEGER},
+            </if>
+            <if test="record.pianoShopNum != null">
+                piano_shop_num = #{record.pianoShopNum,jdbcType=INTEGER},
+            </if>
+            <if test="record.bossName != null">
+                boss_name = #{record.bossName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.bossTelephone != null">
+                boss_telephone = #{record.bossTelephone,jdbcType=VARCHAR},
+            </if>
+            <if test="record.income != null">
+                income = #{record.income,jdbcType=DECIMAL},
+            </if>
+            <if test="record.area != null">
+                area = #{record.area,jdbcType=VARCHAR},
+            </if>
+            <if test="record.address != null">
+                address = #{record.address,jdbcType=VARCHAR},
+            </if>
+            <if test="record.remind != null">
+                remind = #{record.remind,jdbcType=INTEGER},
+            </if>
+            <if test="record.state != null">
+                state = #{record.state,jdbcType=INTEGER},
+            </if>
+            <if test="record.fengmianPicture != null">
+                fengmian_picture = #{record.fengmianPicture,jdbcType=VARCHAR},
+            </if>
+            <if test="record.idcardPicture != null">
+                IDcard_picture = #{record.idcardPicture,jdbcType=VARCHAR},
+            </if>
+            <if test="record.businessLicensePicture != null">
+                business_license_picture = #{record.businessLicensePicture,jdbcType=VARCHAR},
+            </if>
+            <if test="record.balance != null">
+                balance = #{record.balance,jdbcType=DECIMAL},
+            </if>
+            <if test="record.withdrawBalance != null">
+                withdraw_balance = #{record.withdrawBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="record.registerTime != null">
+                register_time = #{record.registerTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.memeberTime != null">
+                memeber_time = #{record.memeberTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.examineTime != null">
+                examine_time = #{record.examineTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.divideMoneyRate != null">
+                divide_money_rate = #{record.divideMoneyRate,jdbcType=DECIMAL},
+            </if>
+            <if test="record.lastLoginTime != null">
+                last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update service_provider
+        set id = #{record.id,jdbcType=INTEGER},
+        provider_id = #{record.providerId,jdbcType=INTEGER},
+        name = #{record.name,jdbcType=VARCHAR},
+        contacts = #{record.contacts,jdbcType=VARCHAR},
+        is_disable = #{record.isDisable,jdbcType=INTEGER},
+        telephone = #{record.telephone,jdbcType=VARCHAR},
+        organiztion_num = #{record.organiztionNum,jdbcType=INTEGER},
+        piano_shop_num = #{record.pianoShopNum,jdbcType=INTEGER},
+        boss_name = #{record.bossName,jdbcType=VARCHAR},
+        boss_telephone = #{record.bossTelephone,jdbcType=VARCHAR},
+        income = #{record.income,jdbcType=DECIMAL},
+        area = #{record.area,jdbcType=VARCHAR},
+        address = #{record.address,jdbcType=VARCHAR},
+        remind = #{record.remind,jdbcType=INTEGER},
+        state = #{record.state,jdbcType=INTEGER},
+        fengmian_picture = #{record.fengmianPicture,jdbcType=VARCHAR},
+        IDcard_picture = #{record.idcardPicture,jdbcType=VARCHAR},
+        business_license_picture = #{record.businessLicensePicture,jdbcType=VARCHAR},
+        balance = #{record.balance,jdbcType=DECIMAL},
+        withdraw_balance = #{record.withdrawBalance,jdbcType=DECIMAL},
+        register_time = #{record.registerTime,jdbcType=TIMESTAMP},
+        memeber_time = #{record.memeberTime,jdbcType=TIMESTAMP},
+        examine_time = #{record.examineTime,jdbcType=TIMESTAMP},
+        divide_money_rate = #{record.divideMoneyRate,jdbcType=DECIMAL},
+        last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.mmall.model.ServiceProvider">
+        update service_provider
+        <set>
+            <if test="providerId != null">
+                provider_id = #{providerId,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="contacts != null">
+                contacts = #{contacts,jdbcType=VARCHAR},
+            </if>
+            <if test="isDisable != null">
+                is_disable = #{isDisable,jdbcType=INTEGER},
+            </if>
+            <if test="telephone != null">
+                telephone = #{telephone,jdbcType=VARCHAR},
+            </if>
+            <if test="organiztionNum != null">
+                organiztion_num = #{organiztionNum,jdbcType=INTEGER},
+            </if>
+            <if test="pianoShopNum != null">
+                piano_shop_num = #{pianoShopNum,jdbcType=INTEGER},
+            </if>
+            <if test="bossName != null">
+                boss_name = #{bossName,jdbcType=VARCHAR},
+            </if>
+            <if test="bossTelephone != null">
+                boss_telephone = #{bossTelephone,jdbcType=VARCHAR},
+            </if>
+            <if test="income != null">
+                income = #{income,jdbcType=DECIMAL},
+            </if>
+            <if test="area != null">
+                area = #{area,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="remind != null">
+                remind = #{remind,jdbcType=INTEGER},
+            </if>
+            <if test="state != null">
+                state = #{state,jdbcType=INTEGER},
+            </if>
+            <if test="fengmianPicture != null">
+                fengmian_picture = #{fengmianPicture,jdbcType=VARCHAR},
+            </if>
+            <if test="idcardPicture != null">
+                IDcard_picture = #{idcardPicture,jdbcType=VARCHAR},
+            </if>
+            <if test="businessLicensePicture != null">
+                business_license_picture = #{businessLicensePicture,jdbcType=VARCHAR},
+            </if>
+            <if test="balance != null">
+                balance = #{balance,jdbcType=DECIMAL},
+            </if>
+            <if test="withdrawBalance != null">
+                withdraw_balance = #{withdrawBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="registerTime != null">
+                register_time = #{registerTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="memeberTime != null">
+                memeber_time = #{memeberTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="examineTime != null">
+                examine_time = #{examineTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="divideMoneyRate != null">
+                divide_money_rate = #{divideMoneyRate,jdbcType=DECIMAL},
+            </if>
+            <if test="lastLoginTime != null">
+                last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.mmall.model.ServiceProvider">
+    update service_provider
+    set provider_id = #{providerId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      contacts = #{contacts,jdbcType=VARCHAR},
+      is_disable = #{isDisable,jdbcType=INTEGER},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      organiztion_num = #{organiztionNum,jdbcType=INTEGER},
+      piano_shop_num = #{pianoShopNum,jdbcType=INTEGER},
+      boss_name = #{bossName,jdbcType=VARCHAR},
+      boss_telephone = #{bossTelephone,jdbcType=VARCHAR},
+      income = #{income,jdbcType=DECIMAL},
+      area = #{area,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      remind = #{remind,jdbcType=INTEGER},
+      state = #{state,jdbcType=INTEGER},
+      fengmian_picture = #{fengmianPicture,jdbcType=VARCHAR},
+      IDcard_picture = #{idcardPicture,jdbcType=VARCHAR},
+      business_license_picture = #{businessLicensePicture,jdbcType=VARCHAR},
+      balance = #{balance,jdbcType=DECIMAL},
+      withdraw_balance = #{withdrawBalance,jdbcType=DECIMAL},
+      register_time = #{registerTime,jdbcType=TIMESTAMP},
+      memeber_time = #{memeberTime,jdbcType=TIMESTAMP},
+      examine_time = #{examineTime,jdbcType=TIMESTAMP},
+      divide_money_rate = #{divideMoneyRate,jdbcType=DECIMAL},
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from service_provider
+        <where>
+            <if test="param!=null and param!=''">
+                AND id LIKE concat("%",#{param},"%") or name LIKE concat("%",#{param},"%")
+            </if>
+            <if test="startTime != null and startTime != ''">
+                and register_time &gt; #{startTime}
+            </if>
+            <if test="endTime != null and endTime != ''">
+                and register_time &lt; #{endTime}
+            </if>
+        </where>
+        order by register_time desc
+
+    </select>
+    <select id="selectIsNotPhone" resultType="java.lang.Long">
+    select count(*) from service_provider where telephone = #{telephone,jdbcType=VARCHAR}
+  </select>
+    <select id="getServiceProviderByZnArea" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from service_provider
+        where area LIKE concat("%",#{param},"%")
+    </select>
+    <select id="getServiceProviderByZnAreaLike" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from service_provider
+        where area LIKE concat("%",#{param},"%")
+    </select>
+
+</mapper>

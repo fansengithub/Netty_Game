@@ -1,0 +1,36 @@
+package com.mmall.Test;
+
+import com.mmall.dao.ParentsMapper;
+import com.mmall.entity.player;
+import com.mmall.model.ElecPlayer;
+import com.mmall.util.AgeUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:applicationContext.xml"})
+@Transactional
+@Slf4j
+public class MyTest {
+    @Autowired
+    private ParentsMapper parentsMapper;
+    @Test
+    public void test1(){
+        List<ElecPlayer> players=parentsMapper.selParentsAndstus(2);
+        log.info(""+players.get(0).getName());
+    }
+    @Test
+    public void test2(){
+        int num=AgeUtil.getAgeFromBirthTime("1997-10-07");
+        log.info(""+num);
+    }
+
+}

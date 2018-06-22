@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mmall.dao.PlayerOperaMapper" >
+  <resultMap id="BaseResultMap" type="com.mmall.model.PlayerOpera" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="player_id" property="playerId" jdbcType="INTEGER" />
+    <result column="opera_id" property="operaId" jdbcType="INTEGER" />
+    <result column="price_id" property="priceId" jdbcType="INTEGER" />
+    <result column="cratetime" property="cratetime" jdbcType="TIMESTAMP" />
+    <result column="expiretime" property="expiretime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, player_id, opera_id, price_id, cratetime, expiretime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mmall.model.PlayerOperaExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from player_opera
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from player_opera
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from player_opera
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mmall.model.PlayerOperaExample" >
+    delete from player_opera
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mmall.model.PlayerOpera" >
+    insert into player_opera (id, player_id, opera_id, 
+      price_id, cratetime, expiretime
+      )
+    values (#{id,jdbcType=INTEGER}, #{playerId,jdbcType=INTEGER}, #{operaId,jdbcType=INTEGER}, 
+      #{priceId,jdbcType=INTEGER}, #{cratetime,jdbcType=TIMESTAMP}, #{expiretime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mmall.model.PlayerOpera" >
+    insert into player_opera
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="playerId != null" >
+        player_id,
+      </if>
+      <if test="operaId != null" >
+        opera_id,
+      </if>
+      <if test="priceId != null" >
+        price_id,
+      </if>
+      <if test="cratetime != null" >
+        cratetime,
+      </if>
+      <if test="expiretime != null" >
+        expiretime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="playerId != null" >
+        #{playerId,jdbcType=INTEGER},
+      </if>
+      <if test="operaId != null" >
+        #{operaId,jdbcType=INTEGER},
+      </if>
+      <if test="priceId != null" >
+        #{priceId,jdbcType=INTEGER},
+      </if>
+      <if test="cratetime != null" >
+        #{cratetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expiretime != null" >
+        #{expiretime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mmall.model.PlayerOperaExample" resultType="java.lang.Integer" >
+    select count(*) from player_opera
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update player_opera
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.playerId != null" >
+        player_id = #{record.playerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.operaId != null" >
+        opera_id = #{record.operaId,jdbcType=INTEGER},
+      </if>
+      <if test="record.priceId != null" >
+        price_id = #{record.priceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cratetime != null" >
+        cratetime = #{record.cratetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.expiretime != null" >
+        expiretime = #{record.expiretime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update player_opera
+    set id = #{record.id,jdbcType=INTEGER},
+      player_id = #{record.playerId,jdbcType=INTEGER},
+      opera_id = #{record.operaId,jdbcType=INTEGER},
+      price_id = #{record.priceId,jdbcType=INTEGER},
+      cratetime = #{record.cratetime,jdbcType=TIMESTAMP},
+      expiretime = #{record.expiretime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mmall.model.PlayerOpera" >
+    update player_opera
+    <set >
+      <if test="playerId != null" >
+        player_id = #{playerId,jdbcType=INTEGER},
+      </if>
+      <if test="operaId != null" >
+        opera_id = #{operaId,jdbcType=INTEGER},
+      </if>
+      <if test="priceId != null" >
+        price_id = #{priceId,jdbcType=INTEGER},
+      </if>
+      <if test="cratetime != null" >
+        cratetime = #{cratetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expiretime != null" >
+        expiretime = #{expiretime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mmall.model.PlayerOpera" >
+    update player_opera
+    set player_id = #{playerId,jdbcType=INTEGER},
+      opera_id = #{operaId,jdbcType=INTEGER},
+      price_id = #{priceId,jdbcType=INTEGER},
+      cratetime = #{cratetime,jdbcType=TIMESTAMP},
+      expiretime = #{expiretime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+   <select id="getCountByOperaId" resultType="java.lang.Integer">
+    select
+    count(*)
+    from player_opera
+    where opera_id = #{operaId}
+  </select>
+
+
+</mapper>

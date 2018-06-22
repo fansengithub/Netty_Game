@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mmall.dao.ConsumptionDetailMapper">
+  <resultMap id="BaseResultMap" type="com.mmall.model.ConsumptionDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="role" jdbcType="VARCHAR" property="role" />
+    <result column="consumption_money" jdbcType="DECIMAL" property="consumptionMoney" />
+    <result column="consumption_detail" jdbcType="VARCHAR" property="consumptionDetail" />
+    <result column="rest_money" jdbcType="DECIMAL" property="restMoney" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, user_id, name, role, consumption_money, consumption_detail, rest_money, createtime
+  </sql>
+  <select id="selectByExample" parameterType="com.mmall.model.ConsumptionDetailExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from consumption_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from consumption_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from consumption_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mmall.model.ConsumptionDetailExample">
+    delete from consumption_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mmall.model.ConsumptionDetail">
+    insert into consumption_detail (id, user_id, name, 
+      role, consumption_money, consumption_detail, 
+      rest_money, createtime)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{role,jdbcType=VARCHAR}, #{consumptionMoney,jdbcType=DECIMAL}, #{consumptionDetail,jdbcType=VARCHAR}, 
+      #{restMoney,jdbcType=DECIMAL}, #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mmall.model.ConsumptionDetail">
+    insert into consumption_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="role != null">
+        role,
+      </if>
+      <if test="consumptionMoney != null">
+        consumption_money,
+      </if>
+      <if test="consumptionDetail != null">
+        consumption_detail,
+      </if>
+      <if test="restMoney != null">
+        rest_money,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null">
+        #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="consumptionMoney != null">
+        #{consumptionMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="consumptionDetail != null">
+        #{consumptionDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="restMoney != null">
+        #{restMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mmall.model.ConsumptionDetailExample" resultType="java.lang.Long">
+    select count(*) from consumption_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update consumption_detail
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.role != null">
+        role = #{record.role,jdbcType=VARCHAR},
+      </if>
+      <if test="record.consumptionMoney != null">
+        consumption_money = #{record.consumptionMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.consumptionDetail != null">
+        consumption_detail = #{record.consumptionDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.restMoney != null">
+        rest_money = #{record.restMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.createtime != null">
+        createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update consumption_detail
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      role = #{record.role,jdbcType=VARCHAR},
+      consumption_money = #{record.consumptionMoney,jdbcType=DECIMAL},
+      consumption_detail = #{record.consumptionDetail,jdbcType=VARCHAR},
+      rest_money = #{record.restMoney,jdbcType=DECIMAL},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mmall.model.ConsumptionDetail">
+    update consumption_detail
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null">
+        role = #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="consumptionMoney != null">
+        consumption_money = #{consumptionMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="consumptionDetail != null">
+        consumption_detail = #{consumptionDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="restMoney != null">
+        rest_money = #{restMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mmall.model.ConsumptionDetail">
+    update consumption_detail
+    set user_id = #{userId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      role = #{role,jdbcType=VARCHAR},
+      consumption_money = #{consumptionMoney,jdbcType=DECIMAL},
+      consumption_detail = #{consumptionDetail,jdbcType=VARCHAR},
+      rest_money = #{restMoney,jdbcType=DECIMAL},
+      createtime = #{createtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectAll"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from consumption_detail
+    <where>
+      <if test="param!=null and param!=''">
+        AND (id like CONCAT('%',#{param},'%') or user_id like CONCAT('%',#{param},'%') or name like CONCAT('%',#{param},'%'))
+      </if>
+      <if test="startTime != null and startTime != ''">
+        and createtime &gt; #{startTime}
+      </if>
+      <if test="endTime != null and endTime != ''">
+        and createtime &lt; #{endTime}
+      </if>
+    </where>
+    order by createtime desc
+  </select>
+  <select id="selectAllByService"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from consumption_detail
+    <where>
+      ((role='1' and user_id = #{uid,jdbcType=INTEGER}) or
+      (role='2' and user_id in (select id from organization where  serviceProvider_id = #{uid,jdbcType=INTEGER})) or
+      (role='3' and user_id in (select id from piano_shop where belongto_orginazeID in(select id from organization where serviceProvider_id=#{uid,jdbcType=INTEGER}))) or
+      (role='4' and user_id in (select id from teacher where belongto_piano_shopID in (select id from piano_shop where belongto_orginazeID in (select id from organization where serviceProvider_id = #{uid,jdbcType=INTEGER}))))or
+      (role='5' and user_id in (select id from parents where teacher_id in (select id from teacher where belongto_piano_shopID in (select id from piano_shop where belongto_orginazeID in (select id from organization where serviceProvider_id = #{uid,jdbcType=INTEGER})))))or
+      (role='6' and user_id in (select id from students where teacher_id in (select id from teacher where belongto_piano_shopID in (select id from piano_shop where belongto_orginazeID in (select id from organization where serviceProvider_id = #{uid,jdbcType=INTEGER}))))))
+
+      <if test="param!=null and param!=''">
+        AND (id like CONCAT('%',#{param},'%') or user_id like CONCAT('%',#{param},'%') or name like CONCAT('%',#{param},'%'))
+      </if>
+      <if test="startTime != null and startTime != ''">
+        and createtime &gt; #{startTime}
+      </if>
+      <if test="endTime != null and endTime != ''">
+        and createtime &lt; #{endTime}
+      </if>
+    </where>
+    order by createtime desc
+  </select>
+  <select id="selectAllByOrganization"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from consumption_detail
+    <where>
+      ((role='2' and user_id = #{uid,jdbcType=INTEGER}) or
+      (role='3' and user_id in (select id from piano_shop where belongto_orginazeID =#{uid,jdbcType=INTEGER})) or
+      (role='4' and user_id in (select id from teacher where belongto_piano_shopID in (select id from piano_shop where belongto_orginazeID= #{uid,jdbcType=INTEGER})))or
+      (role='5' and user_id in (select id from parents where teacher_id in (select id from teacher where belongto_piano_shopID in (select id from piano_shop where belongto_orginazeID = #{uid,jdbcType=INTEGER}))))or
+      (role='6' and user_id in (select id from students where teacher_id in (select id from teacher where belongto_piano_shopID in (select id from piano_shop where belongto_orginazeID = #{uid,jdbcType=INTEGER})))))
+      <if test="param!=null and param!=''">
+        AND (id like CONCAT('%',#{param},'%') or user_id like CONCAT('%',#{param},'%') or name like CONCAT('%',#{param},'%'))
+      </if>
+      <if test="startTime != null and startTime != ''">
+        and createtime &gt; #{startTime}
+      </if>
+      <if test="endTime != null and endTime != ''">
+        and createtime &lt; #{endTime}
+      </if>
+    </where>
+    order by createtime desc
+  </select>
+  <select id="selectAllByPianoShop"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from consumption_detail
+    <where>
+      ((role='3' and user_id = #{uid,jdbcType=INTEGER}) or
+      (role='4' and user_id in (select id from teacher where  belongto_piano_shopID = #{uid,jdbcType=INTEGER}))or
+      (role='5' and user_id in (select id from parents where teacher_id in (select id from teacher where belongto_piano_shopID = #{uid,jdbcType=INTEGER})))or
+      (role='6' and user_id in (select id from students where teacher_id in (select id from teacher where belongto_piano_shopID= #{uid,jdbcType=INTEGER}))))
+      <if test="param!=null and param!=''">
+        AND (id like CONCAT('%',#{param},'%') or user_id like CONCAT('%',#{param},'%') or name like CONCAT('%',#{param},'%'))
+      </if>
+      <if test="startTime != null and startTime != ''">
+        and createtime &gt; #{startTime}
+      </if>
+      <if test="endTime != null and endTime != ''">
+        and createtime &lt; #{endTime}
+      </if>
+    </where>
+    order by createtime desc
+  </select>
+
+  <select id="consumptionSUM" resultType="java.lang.Integer">
+    SELECT SUM(consumption_money) FROM consumption_detail WHERE user_id=#{uid} AND TO_DAYS(`createtime`) = TO_DAYS(NOW());
+  </select>
+
+  <select id="getConsumtionByUid" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM consumption_detail
+    <where>
+      user_id=#{uid}
+      <if test="time != null and time != ''">
+        <![CDATA[   and DATE_FORMAT(createtime, '%Y-%m-%d')>=  DATE_FORMAT(#{time}, '%Y-%m-%d')   ]]>
+      </if>
+      <if test="endtime != null and endtime != ''">
+        <![CDATA[  and DATE_FORMAT(createtime, '%Y-%m-%d') <= DATE_FORMAT(#{endtime}, '%Y-%m-%d')  ]]>
+      </if>
+    </where>
+    order by createtime desc
+  </select>
+
+  <!--获得单人消费总额-->
+  <select id="getConsumtionDetaiCount" resultType="java.lang.Integer">
+    SELECT SUM(consumption_money) FROM consumption_detail where role=#{role} AND user_id=#{userId}
+  </select>
+</mapper>

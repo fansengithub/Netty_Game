@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mmall.dao.BankcardDetailMapper">
+  <resultMap id="BaseResultMap" type="com.mmall.model.BankcardDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="role_type" jdbcType="INTEGER" property="roleType" />
+    <result column="roler" jdbcType="VARCHAR" property="roler" />
+    <result column="opean_bank" jdbcType="VARCHAR" property="opeanBank" />
+    <result column="holder_name" jdbcType="VARCHAR" property="holderName" />
+    <result column="bankCard_num" jdbcType="VARCHAR" property="bankcardNum" />
+    <result column="is_default" jdbcType="INTEGER" property="isDefault" />
+    <result column="bankCard_type" jdbcType="VARCHAR" property="bankcardType" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, user_id, user_name, role_type, roler, opean_bank, holder_name, bankCard_num, 
+    is_default, bankCard_type, telephone
+  </sql>
+  <select id="selectByExample" parameterType="com.mmall.model.BankcardDetailExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bankcard_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bankcard_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from bankcard_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mmall.model.BankcardDetailExample">
+    delete from bankcard_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mmall.model.BankcardDetail">
+    insert into bankcard_detail (id, user_id, user_name, 
+      role_type, roler, opean_bank, 
+      holder_name, bankCard_num, is_default, 
+      bankCard_type, telephone)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, 
+      #{roleType,jdbcType=INTEGER}, #{roler,jdbcType=VARCHAR}, #{opeanBank,jdbcType=VARCHAR}, 
+      #{holderName,jdbcType=VARCHAR}, #{bankcardNum,jdbcType=VARCHAR}, #{isDefault,jdbcType=INTEGER}, 
+      #{bankcardType,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mmall.model.BankcardDetail">
+    insert into bankcard_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="roleType != null">
+        role_type,
+      </if>
+      <if test="roler != null">
+        roler,
+      </if>
+      <if test="opeanBank != null">
+        opean_bank,
+      </if>
+      <if test="holderName != null">
+        holder_name,
+      </if>
+      <if test="bankcardNum != null">
+        bankCard_num,
+      </if>
+      <if test="isDefault != null">
+        is_default,
+      </if>
+      <if test="bankcardType != null">
+        bankCard_type,
+      </if>
+      <if test="telephone != null">
+        telephone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleType != null">
+        #{roleType,jdbcType=INTEGER},
+      </if>
+      <if test="roler != null">
+        #{roler,jdbcType=VARCHAR},
+      </if>
+      <if test="opeanBank != null">
+        #{opeanBank,jdbcType=VARCHAR},
+      </if>
+      <if test="holderName != null">
+        #{holderName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankcardNum != null">
+        #{bankcardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefault != null">
+        #{isDefault,jdbcType=INTEGER},
+      </if>
+      <if test="bankcardType != null">
+        #{bankcardType,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mmall.model.BankcardDetailExample" resultType="java.lang.Long">
+    select count(*) from bankcard_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update bankcard_detail
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roleType != null">
+        role_type = #{record.roleType,jdbcType=INTEGER},
+      </if>
+      <if test="record.roler != null">
+        roler = #{record.roler,jdbcType=VARCHAR},
+      </if>
+      <if test="record.opeanBank != null">
+        opean_bank = #{record.opeanBank,jdbcType=VARCHAR},
+      </if>
+      <if test="record.holderName != null">
+        holder_name = #{record.holderName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankcardNum != null">
+        bankCard_num = #{record.bankcardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDefault != null">
+        is_default = #{record.isDefault,jdbcType=INTEGER},
+      </if>
+      <if test="record.bankcardType != null">
+        bankCard_type = #{record.bankcardType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telephone != null">
+        telephone = #{record.telephone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update bankcard_detail
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      role_type = #{record.roleType,jdbcType=INTEGER},
+      roler = #{record.roler,jdbcType=VARCHAR},
+      opean_bank = #{record.opeanBank,jdbcType=VARCHAR},
+      holder_name = #{record.holderName,jdbcType=VARCHAR},
+      bankCard_num = #{record.bankcardNum,jdbcType=VARCHAR},
+      is_default = #{record.isDefault,jdbcType=INTEGER},
+      bankCard_type = #{record.bankcardType,jdbcType=VARCHAR},
+      telephone = #{record.telephone,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mmall.model.BankcardDetail">
+    update bankcard_detail
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleType != null">
+        role_type = #{roleType,jdbcType=INTEGER},
+      </if>
+      <if test="roler != null">
+        roler = #{roler,jdbcType=VARCHAR},
+      </if>
+      <if test="opeanBank != null">
+        opean_bank = #{opeanBank,jdbcType=VARCHAR},
+      </if>
+      <if test="holderName != null">
+        holder_name = #{holderName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankcardNum != null">
+        bankCard_num = #{bankcardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefault != null">
+        is_default = #{isDefault,jdbcType=INTEGER},
+      </if>
+      <if test="bankcardType != null">
+        bankCard_type = #{bankcardType,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mmall.model.BankcardDetail">
+    update bankcard_detail
+    set user_id = #{userId,jdbcType=INTEGER},
+      user_name = #{userName,jdbcType=VARCHAR},
+      role_type = #{roleType,jdbcType=INTEGER},
+      roler = #{roler,jdbcType=VARCHAR},
+      opean_bank = #{opeanBank,jdbcType=VARCHAR},
+      holder_name = #{holderName,jdbcType=VARCHAR},
+      bankCard_num = #{bankcardNum,jdbcType=VARCHAR},
+      is_default = #{isDefault,jdbcType=INTEGER},
+      bankCard_type = #{bankcardType,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="getAllBankcardDetail" resultMap="BaseResultMap">
+    SELECT * FROM bankcard_detail
+    <where>
+      <if test="param!=null and param!=''">
+        AND user_id=#{param}
+      </if>
+    </where>
+  </select>
+  <select id="getRoleNameByuserID" parameterType="java.lang.Integer" resultType="java.lang.String">
+    SELECT NAME FROM sys_role
+    <where>
+      id IN (SELECT role_id FROM sys_role_user WHERE user_id=#{userID,jdbcType=INTEGER})
+    </where>
+  </select>
+  <!--修该后台当前用户的默认银行卡-->
+  <update id="updateAllisDefault" parameterType="com.mmall.model.BankcardDetail">
+    update bankcard_detail
+    <set>
+      <if test="isDefault != null">
+        is_default = #{isDefault,jdbcType=INTEGER},
+      </if>
+    </set>
+    where  role_type=2 AND user_id=#{userId,jdbcType=INTEGER}
+  </update>
+
+  <!--获取用户银行卡-->
+  <select id="getBankCardByUid" resultMap="BaseResultMap">
+    SELECT * FROM bankcard_detail WHERE user_id=#{uid}
+  </select>
+
+</mapper>

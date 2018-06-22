@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mmall.dao.CountRecordMapper">
+    <resultMap id="BaseResultMap" type="com.mmall.model.CountRecord">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="user_account" property="userAccount" jdbcType="VARCHAR"/>
+        <result column="user_role" property="userRole" jdbcType="VARCHAR"/>
+        <result column="user_nick" property="userNick" jdbcType="VARCHAR"/>
+        <result column="piano_shop" property="pianoShop" jdbcType="VARCHAR"/>
+        <result column="teacher" property="teacher" jdbcType="VARCHAR"/>
+        <result column="count_time" property="countTime" jdbcType="VARCHAR"/>
+        <result column="counter_speed" property="counterSpeed" jdbcType="VARCHAR"/>
+        <result column="counter_count" property="counterCount" jdbcType="INTEGER"/>
+        <result column="record_time" property="recordTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    id, user_id, user_account, user_role, user_nick, piano_shop, teacher, count_time, 
+    counter_speed, counter_count, record_time
+  </sql>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mmall.model.CountRecordExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from count_record
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from count_record
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from count_record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.mmall.model.CountRecordExample">
+        delete from count_record
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.mmall.model.CountRecord">
+    insert into count_record (id, user_id, user_account, 
+      user_role, user_nick, piano_shop, 
+      teacher, count_time, counter_speed, 
+      counter_count, record_time)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{userAccount,jdbcType=VARCHAR}, 
+      #{userRole,jdbcType=VARCHAR}, #{userNick,jdbcType=VARCHAR}, #{pianoShop,jdbcType=VARCHAR}, 
+      #{teacher,jdbcType=VARCHAR}, #{countTime,jdbcType=VARCHAR}, #{counterSpeed,jdbcType=VARCHAR}, 
+      #{counterCount,jdbcType=INTEGER}, #{recordTime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.mmall.model.CountRecord">
+        insert into count_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="userAccount != null">
+                user_account,
+            </if>
+            <if test="userRole != null">
+                user_role,
+            </if>
+            <if test="userNick != null">
+                user_nick,
+            </if>
+            <if test="pianoShop != null">
+                piano_shop,
+            </if>
+            <if test="teacher != null">
+                teacher,
+            </if>
+            <if test="countTime != null">
+                count_time,
+            </if>
+            <if test="counterSpeed != null">
+                counter_speed,
+            </if>
+            <if test="counterCount != null">
+                counter_count,
+            </if>
+            <if test="recordTime != null">
+                record_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="userAccount != null">
+                #{userAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="userRole != null">
+                #{userRole,jdbcType=VARCHAR},
+            </if>
+            <if test="userNick != null">
+                #{userNick,jdbcType=VARCHAR},
+            </if>
+            <if test="pianoShop != null">
+                #{pianoShop,jdbcType=VARCHAR},
+            </if>
+            <if test="teacher != null">
+                #{teacher,jdbcType=VARCHAR},
+            </if>
+            <if test="countTime != null">
+                #{countTime,jdbcType=VARCHAR},
+            </if>
+            <if test="counterSpeed != null">
+                #{counterSpeed,jdbcType=VARCHAR},
+            </if>
+            <if test="counterCount != null">
+                #{counterCount,jdbcType=INTEGER},
+            </if>
+            <if test="recordTime != null">
+                #{recordTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.mmall.model.CountRecordExample" resultType="java.lang.Integer">
+        select count(*) from count_record
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update count_record
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.userId != null">
+                user_id = #{record.userId,jdbcType=INTEGER},
+            </if>
+            <if test="record.userAccount != null">
+                user_account = #{record.userAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="record.userRole != null">
+                user_role = #{record.userRole,jdbcType=VARCHAR},
+            </if>
+            <if test="record.userNick != null">
+                user_nick = #{record.userNick,jdbcType=VARCHAR},
+            </if>
+            <if test="record.pianoShop != null">
+                piano_shop = #{record.pianoShop,jdbcType=VARCHAR},
+            </if>
+            <if test="record.teacher != null">
+                teacher = #{record.teacher,jdbcType=VARCHAR},
+            </if>
+            <if test="record.countTime != null">
+                count_time = #{record.countTime,jdbcType=VARCHAR},
+            </if>
+            <if test="record.counterSpeed != null">
+                counter_speed = #{record.counterSpeed,jdbcType=VARCHAR},
+            </if>
+            <if test="record.counterCount != null">
+                counter_count = #{record.counterCount,jdbcType=INTEGER},
+            </if>
+            <if test="record.recordTime != null">
+                record_time = #{record.recordTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update count_record
+        set id = #{record.id,jdbcType=INTEGER},
+        user_id = #{record.userId,jdbcType=INTEGER},
+        user_account = #{record.userAccount,jdbcType=VARCHAR},
+        user_role = #{record.userRole,jdbcType=VARCHAR},
+        user_nick = #{record.userNick,jdbcType=VARCHAR},
+        piano_shop = #{record.pianoShop,jdbcType=VARCHAR},
+        teacher = #{record.teacher,jdbcType=VARCHAR},
+        count_time = #{record.countTime,jdbcType=VARCHAR},
+        counter_speed = #{record.counterSpeed,jdbcType=VARCHAR},
+        counter_count = #{record.counterCount,jdbcType=INTEGER},
+        record_time = #{record.recordTime,jdbcType=TIMESTAMP}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.mmall.model.CountRecord">
+        update count_record
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="userAccount != null">
+                user_account = #{userAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="userRole != null">
+                user_role = #{userRole,jdbcType=VARCHAR},
+            </if>
+            <if test="userNick != null">
+                user_nick = #{userNick,jdbcType=VARCHAR},
+            </if>
+            <if test="pianoShop != null">
+                piano_shop = #{pianoShop,jdbcType=VARCHAR},
+            </if>
+            <if test="teacher != null">
+                teacher = #{teacher,jdbcType=VARCHAR},
+            </if>
+            <if test="countTime != null">
+                count_time = #{countTime,jdbcType=VARCHAR},
+            </if>
+            <if test="counterSpeed != null">
+                counter_speed = #{counterSpeed,jdbcType=VARCHAR},
+            </if>
+            <if test="counterCount != null">
+                counter_count = #{counterCount,jdbcType=INTEGER},
+            </if>
+            <if test="recordTime != null">
+                record_time = #{recordTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.mmall.model.CountRecord">
+    update count_record
+    set user_id = #{userId,jdbcType=INTEGER},
+      user_account = #{userAccount,jdbcType=VARCHAR},
+      user_role = #{userRole,jdbcType=VARCHAR},
+      user_nick = #{userNick,jdbcType=VARCHAR},
+      piano_shop = #{pianoShop,jdbcType=VARCHAR},
+      teacher = #{teacher,jdbcType=VARCHAR},
+      count_time = #{countTime,jdbcType=VARCHAR},
+      counter_speed = #{counterSpeed,jdbcType=VARCHAR},
+      counter_count = #{counterCount,jdbcType=INTEGER},
+      record_time = #{recordTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <!--玩家计数器记录-->
+    <select id="getCountRecordByUid" resultMap="BaseResultMap">
+        SELECT * from count_record
+        <where>
+            user_id=#{uid}
+            <if test="time != null and time != ''">
+                <![CDATA[   and DATE_FORMAT(record_time, '%Y-%m-%d')>=  DATE_FORMAT(#{time}, '%Y-%m-%d')   ]]>
+            </if>
+            <if test="endtime != null and endtime != ''">
+                <![CDATA[  and DATE_FORMAT(record_time, '%Y-%m-%d') <= DATE_FORMAT(#{endtime}, '%Y-%m-%d')  ]]>
+            </if>
+        </where>
+        ORDER BY record_time DESC limit #{page},#{size}
+    </select>
+
+    <!--获取全部积分记录-->
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from count_record
+        <where>
+            <if test="param!=null and param!=''">
+                and user_nick=#{param}
+            </if>
+            <if test="startTime != null and startTime != ''">
+                and record_time &gt; #{startTime}
+            </if>
+            <if test="endTime != null and endTime != ''">
+                and record_time &lt; #{endTime}
+            </if>
+        </where>
+        order by record_time desc
+    </select>
+</mapper>

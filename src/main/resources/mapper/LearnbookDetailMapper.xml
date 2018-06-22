@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mmall.dao.LearnbookDetailMapper">
+  <resultMap id="BaseResultMap" type="com.mmall.model.LearnbookDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="learnBook_id" jdbcType="INTEGER" property="learnbookId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="pianoshop_role" jdbcType="VARCHAR" property="pianoshopRole" />
+    <result column="summary" jdbcType="VARCHAR" property="summary" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="cover_picture" jdbcType="VARCHAR" property="coverPicture" />
+    <result column="opern_num" jdbcType="INTEGER" property="opernNum" />
+    <result column="is_recommend" jdbcType="INTEGER" property="isRecommend" />
+    <result column="is_anthor" jdbcType="INTEGER" property="isAnthor" />
+    <result column="use_permission" jdbcType="VARCHAR" property="usePermission" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, learnBook_id, name, pianoshop_role, summary, author, cover_picture, opern_num, 
+    is_recommend, is_anthor, use_permission
+  </sql>
+  <select id="selectByExample" parameterType="com.mmall.model.LearnbookDetailExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from learnbook_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from learnbook_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from learnbook_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mmall.model.LearnbookDetailExample">
+    delete from learnbook_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mmall.model.LearnbookDetail">
+    insert into learnbook_detail (id, learnBook_id, name, 
+      pianoshop_role, summary, author, 
+      cover_picture, opern_num, is_recommend, 
+      is_anthor, use_permission)
+    values (#{id,jdbcType=INTEGER}, #{learnbookId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{pianoshopRole,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
+      #{coverPicture,jdbcType=VARCHAR}, #{opernNum,jdbcType=INTEGER}, #{isRecommend,jdbcType=INTEGER}, 
+      #{isAnthor,jdbcType=INTEGER}, #{usePermission,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mmall.model.LearnbookDetail">
+    insert into learnbook_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="learnbookId != null">
+        learnBook_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="pianoshopRole != null">
+        pianoshop_role,
+      </if>
+      <if test="summary != null">
+        summary,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="coverPicture != null">
+        cover_picture,
+      </if>
+      <if test="opernNum != null">
+        opern_num,
+      </if>
+      <if test="isRecommend != null">
+        is_recommend,
+      </if>
+      <if test="isAnthor != null">
+        is_anthor,
+      </if>
+      <if test="usePermission != null">
+        use_permission,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="learnbookId != null">
+        #{learnbookId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pianoshopRole != null">
+        #{pianoshopRole,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null">
+        #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="coverPicture != null">
+        #{coverPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="opernNum != null">
+        #{opernNum,jdbcType=INTEGER},
+      </if>
+      <if test="isRecommend != null">
+        #{isRecommend,jdbcType=INTEGER},
+      </if>
+      <if test="isAnthor != null">
+        #{isAnthor,jdbcType=INTEGER},
+      </if>
+      <if test="usePermission != null">
+        #{usePermission,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mmall.model.LearnbookDetailExample" resultType="java.lang.Long">
+    select count(*) from learnbook_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update learnbook_detail
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.learnbookId != null">
+        learnBook_id = #{record.learnbookId,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pianoshopRole != null">
+        pianoshop_role = #{record.pianoshopRole,jdbcType=VARCHAR},
+      </if>
+      <if test="record.summary != null">
+        summary = #{record.summary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.author != null">
+        author = #{record.author,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coverPicture != null">
+        cover_picture = #{record.coverPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.opernNum != null">
+        opern_num = #{record.opernNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.isRecommend != null">
+        is_recommend = #{record.isRecommend,jdbcType=INTEGER},
+      </if>
+      <if test="record.isAnthor != null">
+        is_anthor = #{record.isAnthor,jdbcType=INTEGER},
+      </if>
+      <if test="record.usePermission != null">
+        use_permission = #{record.usePermission,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update learnbook_detail
+    set id = #{record.id,jdbcType=INTEGER},
+      learnBook_id = #{record.learnbookId,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      pianoshop_role = #{record.pianoshopRole,jdbcType=VARCHAR},
+      summary = #{record.summary,jdbcType=VARCHAR},
+      author = #{record.author,jdbcType=VARCHAR},
+      cover_picture = #{record.coverPicture,jdbcType=VARCHAR},
+      opern_num = #{record.opernNum,jdbcType=INTEGER},
+      is_recommend = #{record.isRecommend,jdbcType=INTEGER},
+      is_anthor = #{record.isAnthor,jdbcType=INTEGER},
+      use_permission = #{record.usePermission,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mmall.model.LearnbookDetail">
+    update learnbook_detail
+    <set>
+      <if test="learnbookId != null">
+        learnBook_id = #{learnbookId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pianoshopRole != null">
+        pianoshop_role = #{pianoshopRole,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null">
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="coverPicture != null">
+        cover_picture = #{coverPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="opernNum != null">
+        opern_num = #{opernNum,jdbcType=INTEGER},
+      </if>
+      <if test="isRecommend != null">
+        is_recommend = #{isRecommend,jdbcType=INTEGER},
+      </if>
+      <if test="isAnthor != null">
+        is_anthor = #{isAnthor,jdbcType=INTEGER},
+      </if>
+      <if test="usePermission != null">
+        use_permission = #{usePermission,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mmall.model.LearnbookDetail">
+    update learnbook_detail
+    set learnBook_id = #{learnbookId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      pianoshop_role = #{pianoshopRole,jdbcType=VARCHAR},
+      summary = #{summary,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      cover_picture = #{coverPicture,jdbcType=VARCHAR},
+      opern_num = #{opernNum,jdbcType=INTEGER},
+      is_recommend = #{isRecommend,jdbcType=INTEGER},
+      is_anthor = #{isAnthor,jdbcType=INTEGER},
+      use_permission = #{usePermission,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selAllLearnBook" resultMap="BaseResultMap">
+    SELECT * FROM learnbook_detail
+    <where>
+      <if test="param!=null and param!=''">
+        AND learnBook_id=#{param} OR name LIKE concat("%",#{param},"%")
+      </if>
+    </where>
+  </select>
+
+  <select id="getTop3" resultMap="BaseResultMap">
+    SELECT * FROM learnbook_detail
+    limit 3
+  </select>
+
+  <select id="selectByRecommend" resultMap="BaseResultMap">
+    SELECT * FROM learnbook_detail
+    <where>
+      is_recommend = 1;
+    </where>
+  </select>
+
+  <select id="selectByAuthor" resultMap="BaseResultMap">
+    SELECT * FROM learnbook_detail
+    <where>
+      is_anthor = 1;
+    </where>
+  </select>
+</mapper>

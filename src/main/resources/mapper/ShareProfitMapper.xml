@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mmall.dao.ShareProfitMapper">
+  <resultMap id="BaseResultMap" type="com.mmall.model.ShareProfit">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="game_profit" jdbcType="DECIMAL" property="gameProfit" />
+    <result column="learnBook_profit" jdbcType="DECIMAL" property="learnbookProfit" />
+    <result column="skin_profit" jdbcType="DECIMAL" property="skinProfit" />
+    <result column="create_teacher_profit" jdbcType="DECIMAL" property="createTeacherProfit" />
+    <result column="role" jdbcType="INTEGER" property="role" />
+    <result column="opera_explain" jdbcType="DECIMAL" property="operaExplain" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, game_profit, learnBook_profit, skin_profit, create_teacher_profit, role, opera_explain
+  </sql>
+  <select id="selectByExample" parameterType="com.mmall.model.ShareProfitExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from share_profit
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from share_profit
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from share_profit
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mmall.model.ShareProfitExample">
+    delete from share_profit
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mmall.model.ShareProfit">
+    insert into share_profit (id, game_profit, learnBook_profit, 
+      skin_profit, create_teacher_profit, role, 
+      opera_explain)
+    values (#{id,jdbcType=INTEGER}, #{gameProfit,jdbcType=DECIMAL}, #{learnbookProfit,jdbcType=DECIMAL}, 
+      #{skinProfit,jdbcType=DECIMAL}, #{createTeacherProfit,jdbcType=DECIMAL}, #{role,jdbcType=INTEGER}, 
+      #{operaExplain,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mmall.model.ShareProfit">
+    insert into share_profit
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="gameProfit != null">
+        game_profit,
+      </if>
+      <if test="learnbookProfit != null">
+        learnBook_profit,
+      </if>
+      <if test="skinProfit != null">
+        skin_profit,
+      </if>
+      <if test="createTeacherProfit != null">
+        create_teacher_profit,
+      </if>
+      <if test="role != null">
+        role,
+      </if>
+      <if test="operaExplain != null">
+        opera_explain,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="gameProfit != null">
+        #{gameProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="learnbookProfit != null">
+        #{learnbookProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="skinProfit != null">
+        #{skinProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="createTeacherProfit != null">
+        #{createTeacherProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="role != null">
+        #{role,jdbcType=INTEGER},
+      </if>
+      <if test="operaExplain != null">
+        #{operaExplain,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mmall.model.ShareProfitExample" resultType="java.lang.Long">
+    select count(*) from share_profit
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update share_profit
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.gameProfit != null">
+        game_profit = #{record.gameProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="record.learnbookProfit != null">
+        learnBook_profit = #{record.learnbookProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="record.skinProfit != null">
+        skin_profit = #{record.skinProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="record.createTeacherProfit != null">
+        create_teacher_profit = #{record.createTeacherProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="record.role != null">
+        role = #{record.role,jdbcType=INTEGER},
+      </if>
+      <if test="record.operaExplain != null">
+        opera_explain = #{record.operaExplain,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update share_profit
+    set id = #{record.id,jdbcType=INTEGER},
+      game_profit = #{record.gameProfit,jdbcType=DECIMAL},
+      learnBook_profit = #{record.learnbookProfit,jdbcType=DECIMAL},
+      skin_profit = #{record.skinProfit,jdbcType=DECIMAL},
+      create_teacher_profit = #{record.createTeacherProfit,jdbcType=DECIMAL},
+      role = #{record.role,jdbcType=INTEGER},
+      opera_explain = #{record.operaExplain,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mmall.model.ShareProfit">
+    update share_profit
+    <set>
+      <if test="gameProfit != null">
+        game_profit = #{gameProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="learnbookProfit != null">
+        learnBook_profit = #{learnbookProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="skinProfit != null">
+        skin_profit = #{skinProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="createTeacherProfit != null">
+        create_teacher_profit = #{createTeacherProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="role != null">
+        role = #{role,jdbcType=INTEGER},
+      </if>
+      <if test="operaExplain != null">
+        opera_explain = #{operaExplain,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mmall.model.ShareProfit">
+    update share_profit
+    set game_profit = #{gameProfit,jdbcType=DECIMAL},
+      learnBook_profit = #{learnbookProfit,jdbcType=DECIMAL},
+      skin_profit = #{skinProfit,jdbcType=DECIMAL},
+      create_teacher_profit = #{createTeacherProfit,jdbcType=DECIMAL},
+      role = #{role,jdbcType=INTEGER},
+      opera_explain = #{operaExplain,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKeyByRole" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from share_profit
+    where role= #{id,jdbcType=INTEGER}
+  </select>
+
+  <update id="updateByPrimaryKeySelectiveByRole" parameterType="com.mmall.model.ShareProfit">
+    update share_profit
+    <set>
+      <if test="gameProfit != null">
+        game_profit = #{gameProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="learnbookProfit != null">
+        learnBook_profit = #{learnbookProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="skinProfit != null">
+        skin_profit = #{skinProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="createTeacherProfit != null">
+        create_teacher_profit = #{createTeacherProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="operaExplain != null">
+        opera_explain = #{operaExplain,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where role = #{role,jdbcType=INTEGER}
+  </update>
+
+  <select id="selAllShareProfit" resultMap="BaseResultMap">
+    SELECT * FROM share_profit
+    <where>
+      <if test="param!=null and param!=''">
+        AND game_profit=#{param}
+      </if>
+    </where>
+  </select>
+
+</mapper>
